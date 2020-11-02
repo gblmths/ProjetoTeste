@@ -1,0 +1,42 @@
+body {
+    background-color: #f5f5fe;
+}
+
+.logo {
+    width: 140px;
+}
+
+.nav-link {
+    border-radius: 20px;
+    margin-left: 20px;
+    padding-left: 5px;
+    color: white;
+}
+
+.nav-item a:hover {
+    background-color: white!important;
+    color: #337ab7 !important;
+}
+
+.navbar {
+    background-image: radial-gradient(circle farthest-side at 50% 50%, #2294d7, #275296);
+}
+
+.g-bg-blue-radialgradient-circle {
+    background-image: radial-gradient(circle farthest-side at 50% 50%, #2294d7, #275296);
+}
+
+#middle {
+    padding-bottom: 10px;
+}
+
+#middle img {
+    max-height: 250px;
+}
+
+.faq {
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+}

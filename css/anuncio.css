@@ -1,0 +1,122 @@
+body {
+    background-color: #f5f5fe;
+}
+
+.navbar {
+    background-image: radial-gradient(circle farthest-side at 50% 50%, #2294d7, #275296);
+}
+
+.nav-link {
+    border-radius: 20px;
+    margin-left: 20px;
+    padding-left: 5px;
+    color: white;
+}
+
+.nav-item a:hover {
+    background-color: white!important;
+    color: #337ab7 !important;
+}
+
+.a1 {
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.g-bg-blue-radialgradient-circle {
+    background-image: radial-gradient(circle farthest-side at 50% 50%, #2294d7, #275296);
+}
+
+.filter-container ul li {
+    display: block;
+    background-color: white;
+}
+
+.filter-container ul {
+    padding: 2rem 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.collapsible-header {
+    background-color: #039BE5;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+#container {
+    padding: 40px 20px;
+}
+
+.logo {
+    width: 140px;
+}
+
+.bg-purple {
+    background-color: #FFF;
+    border-left: 10px solid #039BE5;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.a2 {
+    margin-left: -20px;
+    margin-right: 10px;
+}
+
+.input-group.md-form.form-sm.form-1 input {
+    border: 1px solid #039BE5;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+#basic-text {
+    background-color: #039BE5;
+    border-radius: 5px;
+}
+
+.bg-azul {
+    background-color: #FFF;
+    border-right: 10px solid #039BE5;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+strong {
+    font-size: 25px;
+}
+
+.strong {
+    font-size: 15px;
+}
+
+#myUL {
+    /* Remove default list styling */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#myUL li a {
+    border: 1px solid #ddd;
+    /* Add a border to all links */
+    margin-top: -1px;
+    /* Prevent double borders */
+    background-color: #f6f6f6;
+    /* Grey background color */
+    padding: 12px;
+    /* Add some padding */
+    text-decoration: none;
+    /* Remove default text underline */
+    font-size: 18px;
+    /* Increase the font-size */
+    color: black;
+    /* Add a black text color */
+    display: block;
+    /* Make it into a block element to fill the whole list */
+}
+
+#myUL li a:hover:not(.header) {
+    background-color: #eee;
+    /* Add a hover effect to all links, except for headers */
+}

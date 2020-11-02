@@ -1,0 +1,36 @@
+.nav-link {
+    border-radius: 20px;
+    margin-left: 20px;
+    padding-left: 5px;
+    color: white;
+}
+
+.nav-item a:hover {
+    background-color: white!important;
+    color: #337ab7 !important;
+}
+
+.navbar {
+    background-image: radial-gradient(circle farthest-side at 50% 50%, #2294d7, #275296);
+}
+
+.a1 {
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.logo {
+    width: 140px;
+}
+
+body {
+    background-color: #f5f5fe;
+}
+
+.g-bg-blue-radialgradient-circle {
+    background-image: radial-gradient(circle farthest-side at 50% 50%, #2294d7, #275296);
+}
+
+#middle img {
+    max-height: 250px;
+}
