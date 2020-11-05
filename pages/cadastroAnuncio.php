@@ -1,3 +1,24 @@
+<?php
+require '../model/conexao.php';
+session_start();
+
+if(!isset($_SESSION['logado'])):
+    header('Location: index.php');
+endif;  
+
+$id = $_SESSION['id_usuario'];
+
+
+
+$sql = "SELECT * FROM prt_usuario WHERE  id_usuario = '$id'";
+
+$resultado = mysqli_query($connect, $sql);
+
+$dados = mysqli_fetch_array($resultado);
+
+
+
+?>
 <!doctype html>
 <html>
 
@@ -26,7 +47,7 @@
             <nav id="sidebar">
                 <div class="sidebar-header">
                     <a class="a2" href="../gerenciar.html" style="text-decoration:none;">
-                        <h3>Portal do Aluno:</h3>
+                        <h3>Portal do Aluno:<?php echo $dados['nome']; ?></h3>
                     </a>
                 </div>
 
@@ -132,7 +153,7 @@
             <div class="col-lg-9">
                 <div class="card col-sm-6 col-md-12 mt-4 shadow-lg p-3 mb-5 bg-white ">
                     <div class="card-body bg-ligth text-dark ">
-                        <form>
+                        <form method="POST" action="../controller/insertAnuncio.php" enctype="multipart/form-data">
                             <fieldset>
                                 <legends>
                                     <h3>Informações Gerais:</h3>
@@ -144,11 +165,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group row ">
+                                    
                                     <label class="col-md-3 col-form-label mt-2 rounded-circle">Adicionar Foto:</label>
                                     <label className="btn btn-dark btn-lg" class="col-md-9">
                                         <i class="far fa-file-image"  style="width: 100px; height: 50px;"></i>
-                                        <input type="file" style="display: none" />
+                                        <input type="file"  required name="prof_img"> 
+
                                       </label>
+                                      
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Formação:</label>
@@ -159,7 +183,7 @@
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Matéria:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="materia" placeholder="materia">
+                                        <input type="text " class="form-control " id="disciplina" placeholder="materia">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
@@ -178,7 +202,7 @@
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Valor da Aula:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="vaula" placeholder="Valor da Aula">
+                                        <input type="text " class="form-control " id="custo_aula" placeholder="Valor da Aula">
                                     </div>
                                 </div>
                             </fieldset>
@@ -196,13 +220,13 @@
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Cidade:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="Cidade " placeholder="Cidade ">
+                                        <input type="text " class="form-control " id="cidade " placeholder="Cidade ">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Endereço:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="Endereço " placeholder="Endereço ">
+                                        <input type="text " class="form-control " id="endereco " placeholder="Endereço ">
                                     </div>
                                 </div>
                             </fieldset>
@@ -210,7 +234,7 @@
 
                             <div class="row col-sm-12 col-md-12 text-center">
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
-                                    <button type="button" class="btn btn-primary btn-lg mb-3" style="max-width: 190px">Cadastrar Anuncio</button>
+                                <input type="submit" class="btn btn-primary btn-lg mb-3" style="max-width: 190px">Confirmar Cadastro</input>
                                 </div>
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
                                     <button type="button" class="btn btn-danger btn-lg mb-3" style="max-width: 300px">Cancelar Anuncio</button>

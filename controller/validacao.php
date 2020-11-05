@@ -21,7 +21,7 @@
 
             if($sql->rowCount() > 0 ) {
                 $dado = $sql->fetch();
-                $_SESSION['logado'];
+                $_SESSION['logado'] = true;
                 $_SESSION['id_usuario'] = $dado['id_usuario'];
                 if($sq == 1){
                     header("Location: ../gerenciar.php");

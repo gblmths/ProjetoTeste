@@ -1,4 +1,30 @@
 
+<?php
+
+require './model/conexao.php';
+
+
+
+session_start();
+
+if(!isset($_SESSION['logado'])):
+    header('Location: index.php');
+endif;  
+
+$id = $_SESSION['id_usuario'];
+
+
+
+$sql = "SELECT * FROM prt_usuario WHERE  id_usuario = '$id'";
+
+$resultado = mysqli_query($connect, $sql);
+
+$dados = mysqli_fetch_array($resultado);
+
+
+
+?>
+
 <!doctype html>
 <html>
 
@@ -27,12 +53,12 @@
             <nav id="sidebar">
                 <div class="sidebar-header">
                     <a class="a2" href="gerenciar.html" style="text-decoration:none;">
-                        <h3>Portal do Aluno:</h3>
+                        <h3>Portal do Aluno:  </h3>
                     </a>
                 </div>
 
                 <ul class="list-unstyled components ">
-                    <p>Buscar</p>
+                    <p>Buscar <?php echo $dados['nome']; ?></p>
                     <li class="active">
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Alunos</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -48,7 +74,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="text-light" href="/pages/cadastroAnuncio.html">Cadastrar Marketing</a>
+                        <a class="text-light" href="./pages/cadastroAnuncio.php">Cadastrar Marketing</a>
                     </li>
                     <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle text-light">Responsavel</a>
@@ -101,7 +127,7 @@
                             <a class="dropdown-item" href="/pages/alterar.html">Alterar Cadastro</a>
                             <a class="dropdown-item" href="/pages/alterarAnuncio.html">Alterar Anuncio</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="index.html">Logout</a>
+                            <a class="dropdown-item" href="./controller/logout.php">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -253,16 +279,6 @@
 
 </html>
 
-<?php
-
-require 'index.php';
-
-require './model/conexaophp.php';
-
-session_start();
-
-$id = $_SESSION
-?>
 <!--<div id="middle mt-5">
         <div class="container mt-5">
 
