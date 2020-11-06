@@ -70,11 +70,23 @@
                                             <input type="password" class="form-control" placeholder="Senha" name = "senha" value="" />
                                         </div>
                                         <div class="form-group">
+                                            <label class="col-form-label ">Tipo de Acesso:</label>
+                                                <div class="">
+                                                    <select class="form-control form-control-md " name='id_perfil' id="id_perfil">
+                                                        <option value="1">Professor</option>
+                                                        <option value="2">Responsável</option>
+                                                        <option value="3">Aluno</option>
+                                                    </select>
+                                                </div>
+                                        </div>        
+                                
+                                        <div class="form-group">
                                             <a href="gerenciar.html"><button type="submit" class="btn btn-outline-primary col-md-12">Entrar</button></a>
                                             <a href="cadastro.html"><button type="button" class="mt-2 btn btn-outline-secondary col-md-12">Não tenho cadastro</button></a>
                                             <div class="m-2"><a href="#" class="offset-3">Esqueci minha senha</a></div>
                                         </div>
-                                    </form>    
+                                    </form>   
+                                    </div>  
                                 </div>
 
                               

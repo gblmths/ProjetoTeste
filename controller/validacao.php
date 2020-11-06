@@ -4,6 +4,7 @@
     if(isset($_POST['email']) && empty($_POST['email']) == false){
         $email = addslashes($_POST['email']);
         $senha = md5(addslashes($_POST['senha']));
+        $id_perfil = addslashes($_POST['id_perfil']);
 
 
 
@@ -15,9 +16,9 @@
     
         try {
             $db = new PDO($sdn, $dbuser, $dbpass);
-            $sql = $db->query("SELECT * FROM prt_usuario WHERE email = '$email' AND senha = '$senha'") ;
-            $sq = $db->query("SELECT * FROM prt_usuario WHERE id_perfil = '1'");
-            $s = $db->query("SELECT * FROM prt_usuario WHERE id_perfil = '2'");
+            $sql = $db->query("SELECT * FROM prt_usuario WHERE email = '$email' AND senha = '$senha' and id_perfil = '$id_perfil'") ;
+            $sq = $db->query("SELECT * FROM prt_usuario WHERE id_perfil = '$id_perfil'");
+           
 
             if($sql->rowCount() > 0 ) {
                 $dado = $sql->fetch();
@@ -25,11 +26,11 @@
                 $_SESSION['id_usuario'] = $dado['id_usuario'];
                 if($sq == 1){
                     header("Location: ../gerenciar.php");
-                }
-
-                if($s == 2) {
+                } else if ($sq == 2) {
                     header("Location: ../gerenciarResponsavel.html");
                 }
+                   
+                
                 exit;
             } else {
                 header("Location: ../index.php");

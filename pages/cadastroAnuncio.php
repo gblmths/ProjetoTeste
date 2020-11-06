@@ -161,7 +161,7 @@ $dados = mysqli_fetch_array($resultado);
                                 <div class="mt-5 form-group row ">
                                     <label class="col-md-3 col-form-label ">Nome:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="nome " placeholder="Nome ">
+                                        <input type="text " class="form-control " id="nome " name="nome" placeholder="Nome ">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
@@ -177,32 +177,32 @@ $dados = mysqli_fetch_array($resultado);
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Formação:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="formacao" placeholder="Formação">
+                                        <input type="text " class="form-control " id="formacao" name="formacao" placeholder="Formação">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Matéria:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="disciplina" placeholder="materia">
+                                        <input type="text " class="form-control " id="disciplina" name="disciplina" placeholder="materia">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Turno:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="turno" placeholder="turno">
+                                        <input type="text " class="form-control " id="turno" name="turno" placeholder="turno">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">E-mail:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="email" placeholder="E-mail">
+                                        <input type="text " class="form-control " id="email" name="email" placeholder="E-mail">
                                     </div>
                                 </div>
 
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Valor da Aula:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="custo_aula" placeholder="Valor da Aula">
+                                        <input type="text " class="form-control " id="custo_aula" name="custo_aula" placeholder="Valor da Aula">
                                     </div>
                                 </div>
                             </fieldset>
@@ -214,27 +214,36 @@ $dados = mysqli_fetch_array($resultado);
                                 <div class="mt-5 form-group row ">
                                     <label class="col-md-3 col-form-label ">Estado:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="estado " placeholder="Estado ">
+                                        <input type="text " class="form-control " id="estado " name="estado"  placeholder="Estado ">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Cidade:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="cidade " placeholder="Cidade ">
+                                        <input type="text " class="form-control " id="cidade " name="cidade" placeholder="Cidade ">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Endereço:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="endereco " placeholder="Endereço ">
+                                        <input type="text " class="form-control " id="endereco " name="endereco" placeholder="Endereço ">
                                     </div>
                                 </div>
                             </fieldset>
+                            <div class="form-group">
+                                            <label class="col-form-label ">Tipo de Acesso:</label>
+                                                <div class="">
+                                                    <select class="form-control form-control-md " name='id_usuario' id="id_perfil">
+                                                        <option value="<?php echo $_SESSION['id_usuario']; ?>"><?php echo $_SESSION['id_usuario']; ?></option>
+                                                    </select>
+                                                </div>
+                                        </div>        
+                                
                             <hr>
 
                             <div class="row col-sm-12 col-md-12 text-center">
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
-                                <input type="submit" class="btn btn-primary btn-lg mb-3" style="max-width: 190px">Confirmar Cadastro</input>
+                                <input type="submit" class="btn btn-primary btn-lg mb-3" name="confirmar_cadastro"  style="max-width: 190px">Confirmar Cadastro</input>
                                 </div>
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
                                     <button type="button" class="btn btn-danger btn-lg mb-3" style="max-width: 300px">Cancelar Anuncio</button>
