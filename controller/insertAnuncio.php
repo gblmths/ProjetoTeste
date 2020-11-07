@@ -43,6 +43,7 @@ $custo_aula = $_POST['custo_aula'];
 $id_usuario = $_POST['id_usuario'];
 
 
+
 $imagem = $_FILES['prof_img']['tmp_name']; 
 $tamanho = $_FILES['prof_img']['size']; 
 //$tipo = $_FILES['image']['type']; 

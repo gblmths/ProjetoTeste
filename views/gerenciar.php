@@ -1,7 +1,7 @@
 
 <?php
 
-require './model/conexao.php';
+require '../model/conexao.php';
 
 
 
@@ -91,7 +91,7 @@ $dados = mysqli_fetch_array($resultado);
                         </ul>
                     </li>
                     <li>
-                        <a class="text-light" href="/pages/vinculoProfessor.html">Vinculos</a>
+                        <a class="text-light" href="./pages/vinculoProfessor.html">Vinculos</a>
                     </li>
                     <li>
                         <a class="text-light" href="#">Voltar ao inicio</a>

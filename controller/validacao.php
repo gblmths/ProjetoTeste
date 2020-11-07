@@ -16,18 +16,28 @@
     
         try {
             $db = new PDO($sdn, $dbuser, $dbpass);
-            $sql = $db->query("SELECT * FROM prt_usuario WHERE email = '$email' AND senha = '$senha' and id_perfil = '$id_perfil'") ;
-            $sq = $db->query("SELECT * FROM prt_usuario WHERE id_perfil = '$id_perfil'");
+
+            if($id_perfil == 3){
+                $sql = $db->query("SELECT * FROM prt_aluno WHERE email = '$email' AND senha = '$senha' and id_perfil = '$id_perfil'") ;
+            } else {
+                $sql = $db->query("SELECT * FROM prt_usuario WHERE email = '$email' AND senha = '$senha' and id_perfil = '$id_perfil'") ;
+            }
+            
+            
            
 
             if($sql->rowCount() > 0 ) {
                 $dado = $sql->fetch();
                 $_SESSION['logado'] = true;
                 $_SESSION['id_usuario'] = $dado['id_usuario'];
-                if($sq == 1){
-                    header("Location: ../gerenciar.php");
-                } else if ($sq == 2) {
-                    header("Location: ../gerenciarResponsavel.html");
+
+                if($id_perfil == 1){
+                    header("Location: ../views/gerenciar.php");
+                } else if ($id_perfil == 2) {
+                    header("Location: ../views/gerenciarResponsavel.php");
+                } else if ($id_perfil ==3 ){
+
+                    header("Location: ../views/gerenciarAluno.html");
                 }
                    
                 

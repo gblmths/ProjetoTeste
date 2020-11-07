@@ -1,3 +1,31 @@
+<?php 
+
+
+require '../model/conexao.php';
+
+
+
+session_start();
+
+if(!isset($_SESSION['logado'])):
+    header('Location: index.php');
+endif;  
+
+$id = $_SESSION['id_usuario'];
+
+
+
+$sql = "SELECT * FROM prt_aluno WHERE  id_aluno = '$id'";
+
+$resultado = mysqli_query($connect, $sql);
+
+
+$dados = mysqli_fetch_array($resultado);
+
+
+
+
+?>
 <!doctype html>
 <html>
 
@@ -31,44 +59,7 @@
                 </div>
 
                 <ul class="list-unstyled components ">
-                    <p>Buscar</p>
-                    <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Professores</a>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li>
-                                <a href="./Other/professor.html">Professor 1</a>
-                            </li>
-                            <li>
-                                <a href="./Other/professor.html">Professor 2</a>
-                            </li>
-                            <li>
-                                <a href="./Other/professor.html">Professor 3</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="text-light" href="anuncio.html">Encontre seu Professor</a>
-                    </li>
-                    <li class="active">
-                        <a href="#homemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Filho</a>
-                        <ul class="collapse list-unstyled" id="homemenu">
-                            <li>
-                                <a href="./Other/filho.html">Filho 1</a>
-                            </li>
-                            <li>
-                                <a href="./Other/filho.html">Filho 2</a>
-                            </li>
-                            <li>
-                                <a href="./Other/filho.html">Filho 3</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="text-light" href="anuncio.html">Cadastrar Filho</a>
-                    </li>
-                    <li>
-                        <a class="text-light" href="/Other/vinculoReponsavel.html">Vinculos</a>
-                    </li>
+                    <p><?php echo $dados['nome'];?></p>
                     <li>
                         <a class="text-light" href="#">Voltar ao inicio da Pagina</a>
                     </li>
@@ -103,7 +94,7 @@
                             <a class="dropdown-item" href="/Other/alterarReponsavel.html">Alterar Cadastro</a>
                             <a class="dropdown-item" href="/Other/alterarFilho.html">Alterar Cadastro do Filho</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="index.html">Logout</a>
+                            <a class="dropdown-item" href="./controller/logout.php">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -121,7 +112,7 @@
                 <div class="d-flex align-items-center p-3 my-3 text-primary-50 bg-purple rounded box-shadow">
                     <div class="lh-100 col-lg-8">
 
-                        <h2 class="text-dark">Acompanhamento</h2>
+                        <h2 class="text-dark">Visualizar</h2>
 
                     </div>
                 </div>
@@ -132,40 +123,12 @@
 
             <div class="col-lg-9 mt-5">
                 <div class="card mb-3">
-                    <div class="card-header">Nome do Aluno</div>
+                    <div class="card-header">Nome do Professor</div>
                     <div class="card-body">
                         <div class="col-lg-12">
-                            <h2 class="row col-lg-12">Professor Responsável:</h2>
+                            <h2 class="row col-lg-12">Professor Responsavel:</h2>
                             <strong class="row col-lg-12">Nome do Professor</strong>
-                        </div>
-
-
-                        <div class="col-lg-12 mt-5">
-                            <h3 class="card-title mt-5">Desempenho:</h3>
-                            <div class="col-lg-3">
-
-                                <i class="far fa-grin-beam-sweat text-danger" style="width: 30px; height: 50px;"></i>
-                                <p class="text-danger">Baixo</p>
-
-                            </div>
-                            <div class="col-lg-3">
-
-                                <i class="far fa-grimace text-warning" style="width: 30px; height: 50px;"></i>
-                                <p class="text-warning">Medioo</p>
-
-                            </div>
-                            <div class="col-lg-3">
-
-                                <i class="far fa-grin-beam text-primary" style="width: 30px; height: 50px;"></i>
-                                <p class="text-primary">Alto</p>
-
-                            </div>
-                            <div class="col-lg-3">
-
-                                <i class="far fa-grin-hearts text-success" style="width: 30px; height: 50px;"></i>
-                                <p class="text-success">Otimo</p>
-
-                            </div>
+                            <strong class="row col-lg-12">Matéria</strong>
                         </div>
 
                         <div class="col-lg-12 mt-5">

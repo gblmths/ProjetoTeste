@@ -1,6 +1,6 @@
 <?php
 
-function sessao(){
+
     include_once '../model/conexao.php';
     session_start();
 
@@ -19,9 +19,6 @@ function sessao(){
     
     $dados = mysqli_fetch_array($resultado);
     
-
-}
-
 
 
 

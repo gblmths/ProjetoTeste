@@ -1,3 +1,32 @@
+<?php 
+
+
+include_once '../model/conexao.php';
+
+session_start();
+
+if(!isset($_SESSION['logado'])):
+    header('Location: index.php');
+endif;  
+
+
+$id = $_SESSION['id_usuario'];
+
+
+
+$sql = "SELECT * FROM prt_usuario WHERE  id_usuario = '$id'";
+
+$resultado = mysqli_query($connect, $sql);
+
+$dados = mysqli_fetch_array($resultado);
+
+
+
+
+
+
+?>
+
 <!doctype html>
 <html>
 
@@ -136,7 +165,7 @@
             <div class="col-lg-9">
                 <div class="card col-sm-6 col-md-12 mt-4 shadow-lg p-3 mb-5 bg-white ">
                     <div class="card-body bg-ligth text-dark ">
-                        <form>
+                        <form method="POST" action="../controller/insertAluno.php">
                             <fieldset>
                                 <legends>
                                     <h3>Informações Gerais:</h3>
@@ -144,13 +173,13 @@
                                 <div class="mt-5 form-group row ">
                                     <label class="col-md-3 col-form-label ">Nome:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="nome " placeholder="Nome ">
+                                        <input type="text " class="form-control " id="nome" name="nome" placeholder="Nome ">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
-                                    <label class="col-md-3 col-form-label ">Serie/Ano:</label>
+                                    <label class="col-md-3 col-form-label ">Série / Ano:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="serie_ano" placeholder="Serie/Ano">
+                                        <input type="text " class="form-control " id="serie_ano" name="serie_ano" placeholder="Série / Ano">
                                     </div>
                                 </div>
                             </fieldset>
@@ -162,19 +191,19 @@
                                 <div class="mt-5 form-group row ">
                                     <label class="col-md-3 col-form-label ">Estado:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="estado " placeholder="Estado ">
+                                        <input type="text " class="form-control " id="estado" name="estado" placeholder="Estado ">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Cidade:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="Cidade " placeholder="Cidade ">
+                                        <input type="text " class="form-control " id="cidade" name="cidade" placeholder="Cidade ">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Endereço:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="Endereço " placeholder="Endereço ">
+                                        <input type="text " class="form-control " id="endereco" name="endereco" placeholder="Endereço ">
                                     </div>
                                 </div>
                             </fieldset>
@@ -186,19 +215,38 @@
                                 <div class="form-group row mt-5 ">
                                     <label class="col-md-3 col-form-label ">E-mail:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="email" placeholder="E-mail">
+                                        <input type="text " class="form-control " id="email" name="email" placeholder="E-mail">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Senha:</label>
                                     <div class="col-md-9 ">
-                                        <input type="password" class="form-control " id="senha" placeholder="Senha">
+                                        <input type="password" class="form-control " id="senha" name="senha" placeholder="Senha">
                                     </div>
                                 </div>
+                                <div class="invisible form-group">
+                                            <label class="col-form-label ">Tipo de Acesso:</label>
+                                                <div class="">
+                                                    <select class="form-control form-control-md " name='id_usuario' id="id_usuario">
+                                                        <option value="<?php echo $_SESSION['id_usuario'];?>">usuario logado</option>
+                                                   
+                                                    </select>
+                                                </div>
+                                        </div>     
+
+                                 <div class="invisible form-group">
+                                         <label class="col-form-label ">Tipo de Acesso:</label>
+                                                <div class="">
+                                                    <select class="form-control form-control-md " name='id_perfil' id="id_perfil">
+                                                        <option value="3">Aluno</option>
+                                                       
+                                                    </select>
+                                                </div>
+                                        </div>     
                             </fieldset>
                             <div class="row col-sm-12 col-md-12 text-center">
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
-                                    <button type="button" class="btn btn-primary btn-lg mb-3" style="max-width: 190px">Cadastrar Filho</button>
+                                    <button type="submit"  class="btn btn-primary btn-lg mb-3" name="cadastrar_filho" style="max-width: 190px">Cadastrar Filho</button>
                                 </div>
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
                                     <button type="button" class="btn btn-danger btn-lg mb-3" style="max-width: 300px">Cancelar Cadastro</button>

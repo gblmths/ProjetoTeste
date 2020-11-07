@@ -76,7 +76,7 @@
             <div class="row mt-4">
                 <div class="card col-sm-6 col-md-12 mt-4 shadow-lg p-3 mb-5 bg-white ">
                     <div class="card-body bg-ligth text-dark ">
-                        <form method="POST" action="../controller/insertClient.php" onsubmit="return validaForm(this);" >
+                        <form method="POST" action="../controller/insertUsuario.php" onsubmit="return validaForm(this);" >
                             <fieldset>
                                 <legends>
                                     <h3>Informações Gerais:</h3>
@@ -149,7 +149,7 @@
                             <hr>
                             <div class="row col-sm-12 col-md-12 text-center">
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
-                                    <button type="submit" class="btn btn-primary btn-lg mb-3" style="max-width: 190px">Confirmar Cadastro</button>
+                                    <button type="submit" class="btn btn-primary btn-lg mb-3" style="max-width: 190px" name ="cadastrar_usuario">Confirmar Cadastro</button>
                                 </div>
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
                                     <button type="button" class="btn btn-danger btn-lg mb-3" style="max-width: 300px">Cancelar Cadastro  </button>

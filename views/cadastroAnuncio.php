@@ -230,20 +230,19 @@ $dados = mysqli_fetch_array($resultado);
                                     </div>
                                 </div>
                             </fieldset>
-                            <div class="form-group">
-                                            <label class="col-form-label ">Tipo de Acesso:</label>
-                                                <div class="">
+                            <div class="invisible form-group row ">
+                                            <label class="col-md-3 col-form-label ">Tipo de Acesso:</label>
+                                                <div class=" col-md-9">
                                                     <select class="form-control form-control-md " name='id_usuario' id="id_perfil">
-                                                        <option value="<?php echo $_SESSION['id_usuario']; ?>"><?php echo $_SESSION['id_usuario']; ?></option>
+                                                        <option value="<?php echo $_SESSION['id_usuario']; ?>"><?php echo $dados['nome']; ?></option>
                                                     </select>
                                                 </div>
                                         </div>        
-                                
                             <hr>
 
                             <div class="row col-sm-12 col-md-12 text-center">
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
-                                <input type="submit" class="btn btn-primary btn-lg mb-3" name="confirmar_cadastro"  style="max-width: 190px">Confirmar Cadastro</input>
+                                <input type="submit" class="btn btn-primary btn-lg mb-3" name="confirmar_cadastro"  style="max-width: 190px"></input>
                                 </div>
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
                                     <button type="button" class="btn btn-danger btn-lg mb-3" style="max-width: 300px">Cancelar Anuncio</button>

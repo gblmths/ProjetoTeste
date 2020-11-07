@@ -1,3 +1,11 @@
+<?php
+require '../model/conexao.php';
+require '../controller/session.php';
+
+?>
+
+
+
 <!doctype html>
 <html>
 
@@ -7,9 +15,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="shortcut icon" href="images/iconsw/icon-32x32.png" sizes="32x32" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -31,7 +39,44 @@
                 </div>
 
                 <ul class="list-unstyled components ">
-                    <p>Buscar</p>
+                    <p><?php echo $dados['nome'];?></p>
+                    <li class="active">
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Professores</a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li>
+                                <a href="./Other/professor.html">Professor 1</a>
+                            </li>
+                            <li>
+                                <a href="./Other/professor.html">Professor 2</a>
+                            </li>
+                            <li>
+                                <a href="./Other/professor.html">Professor 3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="text-light" href="./anuncio.php">Encontre seu Professor</a>
+                    </li>
+                    <li class="active">
+                        <a href="#homemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Filho</a>
+                        <ul class="collapse list-unstyled" id="homemenu">
+                            <li>
+                                <a href="./Other/filho.html">Filho 1</a>
+                            </li>
+                            <li>
+                                <a href="./Other/filho.html">Filho 2</a>
+                            </li>
+                            <li>
+                                <a href="./Other/filho.html">Filho 3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="text-light" href="cadastrarFilho.php">Cadastrar Filho</a>
+                    </li>
+                    <li>
+                        <a class="text-light" href="/Other/vinculoReponsavel.html">Vinculos</a>
+                    </li>
                     <li>
                         <a class="text-light" href="#">Voltar ao inicio da Pagina</a>
                     </li>
@@ -66,7 +111,7 @@
                             <a class="dropdown-item" href="/Other/alterarReponsavel.html">Alterar Cadastro</a>
                             <a class="dropdown-item" href="/Other/alterarFilho.html">Alterar Cadastro do Filho</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="index.html">Logout</a>
+                            <a class="dropdown-item" href="./controller/logout.php">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -84,7 +129,7 @@
                 <div class="d-flex align-items-center p-3 my-3 text-primary-50 bg-purple rounded box-shadow">
                     <div class="lh-100 col-lg-8">
 
-                        <h2 class="text-dark">Visualizar</h2>
+                        <h2 class="text-dark">Acompanhamento</h2>
 
                     </div>
                 </div>
@@ -95,12 +140,40 @@
 
             <div class="col-lg-9 mt-5">
                 <div class="card mb-3">
-                    <div class="card-header">Nome do Professor</div>
+                    <div class="card-header">Nome do Aluno</div>
                     <div class="card-body">
                         <div class="col-lg-12">
-                            <h2 class="row col-lg-12">Professor Responsavel:</h2>
+                            <h2 class="row col-lg-12">Professor Responsável:</h2>
                             <strong class="row col-lg-12">Nome do Professor</strong>
-                            <strong class="row col-lg-12">Matéria</strong>
+                        </div>
+
+
+                        <div class="col-lg-12 mt-5">
+                            <h3 class="card-title mt-5">Desempenho:</h3>
+                            <div class="col-lg-3">
+
+                                <i class="far fa-grin-beam-sweat text-danger" style="width: 30px; height: 50px;"></i>
+                                <p class="text-danger">Baixo</p>
+
+                            </div>
+                            <div class="col-lg-3">
+
+                                <i class="far fa-grimace text-warning" style="width: 30px; height: 50px;"></i>
+                                <p class="text-warning">Medioo</p>
+
+                            </div>
+                            <div class="col-lg-3">
+
+                                <i class="far fa-grin-beam text-primary" style="width: 30px; height: 50px;"></i>
+                                <p class="text-primary">Alto</p>
+
+                            </div>
+                            <div class="col-lg-3">
+
+                                <i class="far fa-grin-hearts text-success" style="width: 30px; height: 50px;"></i>
+                                <p class="text-success">Otimo</p>
+
+                            </div>
                         </div>
 
                         <div class="col-lg-12 mt-5">
@@ -136,8 +209,8 @@
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
-    <script src="js/bootstrap.min.js "></script>
-    <script src="js/popper.min.js "></script>
+    <script src="../js/bootstrap.min.js "></script>
+    <script src="../js/popper.min.js "></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js " crossorigin="anonymous "></script>
 

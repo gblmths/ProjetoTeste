@@ -1,3 +1,32 @@
+<?php 
+require '../controller/visualizarAnuncio.php';
+
+require '../model/conexao.php';
+
+
+
+session_start();
+
+if(!isset($_SESSION['logado'])):
+    header('Location: index.php');
+endif;  
+
+$id = $_SESSION['id_usuario'];
+
+
+
+$sql = "SELECT * FROM prt_usuario WHERE  id_usuario = '$id'";
+
+$resultado = mysqli_query($connect, $sql);
+$dados = mysqli_fetch_array($resultado);
+
+$sq = "SELECT * FROM prt_aluno WHERE  id_usuario = '$id'";
+
+$result = mysqli_query($connect, $sq);
+$aluno = mysqli_fetch_array($result);
+
+?>
+
 <!doctype html>
 <html>
 
@@ -6,9 +35,9 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-    <link rel="stylesheet" href="css/anuncio.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="shortcut icon" href="images/iconsw/icon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="stylesheet" href="../css/anuncio.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link rel="shortcut icon" href="../images/iconsw/icon-32x32.png" sizes="32x32" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
@@ -17,7 +46,7 @@
 <body class="">
     <header>
         <nav class="navbar navbar-expand-md ">
-            <a class="a1 nav navbar-nav navbar-brand "><img class="logo" src="/images/LogoTip.png"></a>
+            <a class="a1 nav navbar-nav navbar-brand "><img class="logo" src="../images/LogoTip.png"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" style="background-color: white;">
                 <span style="background-color:white" class="icon-bar" style="font-size: 5px;"></span>
                 <span style="background-color:white" class="icon-bar"></span>
@@ -163,56 +192,67 @@
 
                     </div>
                 </div>
+                <?php while($dado = $con->fetch_array()) { ?>
                 <div id="anuncio">
                     <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-azul rounded box-shadow mt-5">
                         <div class="lh-100 col-lg-12 ">
                             <div class="media text-muted pt-3">
-                                <img data-src="holder.js/40x40?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded-circle" style="width: 40px; height: 40px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_172be683a78%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_172be683a78%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2211%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+                                <img data-src="<?php echo $dado['prof_img']; ?>"
                                     data-holder-rendered="true">
                                 <div class="media-body pb-3 mb-0 small lh-125" id="">
-                                    <strong class="d-block text-gray-dark border-bottom border-gray ">Matheus silva</strong>
+                                    <strong class="d-block text-gray-dark border-bottom border-gray "><?php echo $dado['nome']; ?></strong>
                                     <div class="col-lg-6 mt-3" style="float: left;">
                                         <p>
                                             <h5 class="text-dark">E-mail:
-                                                <strong class="strong">matheusilva@gmail.com</strong>
+                                                <strong class="strong"><?php echo $dado['email']; ?></strong>
                                             </h5>
                                         </p>
                                         <p>
                                             <h5 class="text-dark">Matéria(s):
-                                                <strong class="strong">Matématica</strong>
+                                                <strong class="strong"><?php echo $dado['disciplina']; ?></strong>
                                             </h5>
                                         </p>
                                         <p>
                                             <h5 class="text-dark">Turno:
-                                                <strong class="strong">Manhã</strong>
+                                                <strong class="strong"><?php echo $dado['turno']; ?></strong>
+                                            </h5>
+                                        </p>
+                                        <p>
+                                            <h5 class="text-dark">Horario Vago:
+                                                <strong class="strong"><?php echo $dado['horario']; ?></strong>
                                             </h5>
                                         </p>
                                         <p>
                                             <h5 class="text-dark">Formação:
-                                                <strong class="strong">Matématica</strong>
+                                                <strong class="strong"><?php echo $dado['formacao']; ?></strong>
                                             </h5>
                                         </p>
                                     </div>
                                     <div class="col-lg-6 mt-3" style="float: right;">
                                         <p>
                                             <h5 class="text-dark">Estado:
-                                                <strong class="strong">Pernambuco</strong>
+                                                <strong class="strong"><?php echo $dado['estado']; ?></strong>
                                             </h5>
                                         </p>
 
                                         <p>
                                             <h5 class="text-dark">Cidade:
-                                                <strong class="strong">Recife</strong>
+                                                <strong class="strong"><?php echo $dado['cidade']; ?></strong>
                                             </h5>
                                         </p>
                                         <p>
                                             <h5 class="text-dark">Bairro:
-                                                <strong class="strong">Casa Forte</strong>
+                                                <strong class="strong"><?php echo $dado['bairro']; ?></strong>
+                                            </h5>
+                                        </p>
+                                        <p>
+                                            <h5 class="text-dark">Endereço:
+                                                <strong class="strong"><?php echo $dado['endereco']; ?></strong>
                                             </h5>
                                         </p>
                                         <p>
                                             <h5 class="text-dark">Valor da aula:
-                                                <strong class="strong">70 reais</strong>
+                                                <strong class="strong"><?php echo 'R$ '; echo $dado['custo_aula']; echo ' hora/aula';  ?></strong>
                                             </h5>
                                         </p>
                                     </div>
@@ -237,34 +277,45 @@
                                                             <div class="form-group row ">
                                                                 <label class="col-md-3 col-form-label ">Nome professor:</label>
                                                                 <div class="col-md-9 ">
-                                                                    <input class="form-control" type="text" placeholder="Input só de leitura, aqui..." readonly>
+                                                                    <input class="form-control" type="text" placeholder="<?php echo $dado['nome'];?>" readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row ">
                                                                 <label class="col-md-3 col-form-label ">Nome Responsável:</label>
                                                                 <div class="col-md-9 ">
-                                                                    <input class="form-control" type="text" placeholder="Input só de leitura, aqui..." readonly>
+                                                                    <input class="form-control" type="text" placeholder="<?php echo $dados['nome'];?>" readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row ">
                                                                 <label class="col-md-3 col-form-label ">Turno:</label>
                                                                 <div class="col-md-9 ">
-                                                                    <input class="form-control" type="text" placeholder="Input só de leitura, aqui..." readonly>
+                                                                    <input class="form-control" type="text" placeholder="<?php echo $dado['turno'];?>" readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row ">
                                                                 <label class="col-md-3 col-form-label ">Valor da aula:</label>
                                                                 <div class="col-md-9 ">
-                                                                    <input class="form-control" type="text" placeholder="Input só de leitura, aqui..." readonly>
+                                                                    <input class="form-control" type="text" placeholder="<?php echo $dado['custo_aula'];?>" readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row ">
                                                                 <label class="col-md-3 col-form-label ">Filho:</label>
                                                                 <div class="col-md-4 ">
                                                                     <select class="form-control form-control-md ">
-                                                                        <option value=" ">filho</option>
-                                                                        <option value="">filho</option>
+                                                                    <?php while($aluno = $result->fetch_array()) { ?>
+                                                                        <option value="<?php echo $aluno['id_aluno'];?>"><?php echo $aluno['nome'];?></option>
+                                                                        <?php } ?> 
+                            
                                                                     </select>
+                                                                            
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row ">
+                                                                <label class="col-md-3 col-form-label ">Filho:</label>
+                                                                <div class="col-md-4 ">
+                                                                    <div class="form-check">
+                                                                         
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -296,6 +347,8 @@
                         </div>
                     </div>
                 </div>
+
+                <?php } ?> 
 
             </div>
 
@@ -392,8 +445,8 @@
     <script>
         window.jQuery || document.write('<script src="js/jquery-slim.min.js "><\/script>')
     </script>
-    <script src="js/bootstrap.min.js "></script>
-    <script src="js/popper.min.js "></script>
+    <script src="../js/bootstrap.min.js "></script>
+    <script src="../js/popper.min.js "></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js " integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo " crossorigin="anonymous "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js " integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49 " crossorigin="anonymous "></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js " integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy " crossorigin="anonymous "></script>

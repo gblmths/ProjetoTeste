@@ -1,7 +1,7 @@
 <?php
 include_once '../model/conexao.php';
 
-if(isset($_POST['cadastrar_filho'])) {
+if(isset($_POST['confirmar_vinculo'])) {
     $id_usuario = $_POST['id_usuario'];
     $id_perfil = $_POST['id_perfil'];
     $nome = $_POST['nome'];
