@@ -25,6 +25,11 @@ $sq = "SELECT * FROM prt_aluno WHERE  id_usuario = '$id'";
 $result = mysqli_query($connect, $sq);
 $aluno = mysqli_fetch_array($result);
 
+
+$name_aluno = mysqli_query($connect, $sq);
+$nome_aluno = mysqli_fetch_array($name_aluno);
+
+
 ?>
 
 <!doctype html>
@@ -261,7 +266,7 @@ $aluno = mysqli_fetch_array($result);
                                     </div>
                                     <div class="col-lg-12">
 
-                                        <button type="button" class="btn btn-outline-success mt-1" data-toggle="modal" data-target="#ExemploModalCentralizado">Vincular ao professor</button>
+                                        <button type="button" class="btn btn-outline-success mt-1" name="vinculos"data-toggle="modal" data-target="#ExemploModalCentralizado">Vincular ao professor</button>
                                         <!-- Modal -->
                                         <div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -274,6 +279,17 @@ $aluno = mysqli_fetch_array($result);
                                                     </div>
                                                     <div class="modal-body">
                                                         <form>
+                                                        <div class="form-group row ">
+                                                                <label class="col-md-3 col-form-label ">id_anuncio:</label>
+                                                                <div class="col-md-4 ">
+                                                                <select class="form-control form-control-md ">
+                                                                    
+                                                                        <option value="<?php echo $dado['id_anuncio']; ?>"><?php echo $dado['id_anuncio']; ?></option>
+                                                                      
+                            
+                                                                    </select>
+                                                                </div>
+                                                            </div>
                                                             <div class="form-group row ">
                                                                 <label class="col-md-3 col-form-label ">Nome professor:</label>
                                                                 <div class="col-md-9 ">
@@ -312,10 +328,26 @@ $aluno = mysqli_fetch_array($result);
                                                             </div>
 
                                                             <div class="form-group row ">
-                                                                <label class="col-md-3 col-form-label ">Filho:</label>
+                                                                <label class="col-md-3 col-form-label ">Confirmar Filho:</label>
                                                                 <div class="col-md-4 ">
-                                                                    <div class="form-check">
-                                                                         
+                                                                <select class="form-control form-control-md ">
+                                                                    <?php while($nome_aluno = $name_aluno->fetch_array()) { ?>
+                                                                        <option value="<?php echo $nome_aluno['nome'];?>"><?php echo $nome_aluno['nome'];?></option>
+                                                                        <?php } ?> 
+                            
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row ">
+                                                                <label class="col-md-3 col-form-label ">id_usuario:</label>
+                                                                <div class="col-md-4 ">
+                                                                <select class="form-control form-control-md ">
+                                                                    
+                                                                        <option value="<?php echo $_SESSION['id_usuario']; ?>"><?php echo $_SESSION['id_usuario']; ?></option>
+                                                                      
+                            
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </form>
