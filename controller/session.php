@@ -20,8 +20,21 @@
     $dados = mysqli_fetch_array($resultado);
     
 
+    $sq = "SELECT * FROM tb_contratos WHERE id_usuario = '$id'";
+
+    $result =  mysqli_query($connect, $sq);
+    $cont = mysqli_fetch_array($result);
 
 
+    $s = "SELECT * FROM prt_aluno WHERE id_usuario = '$id'";
+
+    $resul =  mysqli_query($connect, $s);
+    $conaluno = mysqli_fetch_array($resul);
+
+    $ab = "SELECT * FROM tb_contratos WHERE id_usuario = '$id'";  
+
+    $resu = mysqli_query($connect, $ab);
+    $conalunos = mysqli_fetch_array($resu);
 
 
 ?>

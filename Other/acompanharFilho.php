@@ -1,3 +1,55 @@
+<?php
+require '../model/conexao.php';
+session_start();
+
+if(!isset($_SESSION['logado'])):
+    header('Location: index.php');
+endif;  
+
+$id = $_SESSION['id_usuario'];
+
+$idcontrato = filter_input(INPUT_GET, 'id_contrato', FILTER_SANITIZE_NUMBER_INT);
+
+
+$sql = "SELECT * FROM prt_usuario WHERE  id_usuario = '$id'";
+
+$resultado = mysqli_query($connect, $sql);
+$dados = mysqli_fetch_array($resultado);
+
+$s = "SELECT * FROM prt_aluno WHERE id_usuario = '$id'";
+
+$resul =  mysqli_query($connect, $s);
+$conaluno = mysqli_fetch_array($resul);
+
+$ab = "SELECT * FROM tb_contratos WHERE id_usuario = '$id'";  
+
+$resu = mysqli_query($connect, $ab);
+$conalunos = mysqli_fetch_array($resu);
+
+
+$sq = "SELECT * FROM tb_contratos WHERE  id_contrato = '$idcontrato'";
+
+$result = mysqli_query($connect, $sq);
+$contrato = mysqli_fetch_array($result);
+
+$ano = "SELECT * FROM tb_anotacoes WHERE  id_contrato = '$idcontrato'";
+
+$anota = mysqli_query($connect, $ano);
+$anot = mysqli_fetch_array($anota);
+
+$desem = "SELECT * FROM tb_desempenho WHERE  id_contrato = '$idcontrato'";
+
+$dese = mysqli_query($connect, $desem);
+$des = mysqli_fetch_array($dese);
+
+$publi = "SELECT * FROM tb_publicacao WHERE  id_contrato = '$idcontrato'";
+
+$publ = mysqli_query($connect, $publi);
+$pub = mysqli_fetch_array($publ);
+
+
+?>
+
 <!doctype html>
 <html>
 
@@ -20,12 +72,12 @@
 
 <body>
 
-    <header>
+<header>
         <div class="wrapper">
             <!-- Sidebar -->
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <a class="a2" href="../gerenciarResponsavel.html" style="text-decoration:none;">
+                <a class="a2" href="../views/gerenciarResponsavel.php" style="text-decoration:none;">
                         <h3>Portal do Aluno:</h3>
                     </a>
                 </div>
@@ -33,42 +85,48 @@
                 <ul class="list-unstyled components ">
                     <p>Buscar</p>
                     <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Professores</a>
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Acompanhar Filho</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li>
-                                <a href="professor.html">Professor 1</a>
+                        <?php if($conalunos > 0 ){
+                    
+                    
+                    do {
+
+                        ?>    
+                        <li>
+                        <?php  echo "<a type='submit' href='../Other/acompanharFilho.php?id_contrato=". $conalunos['id_contrato']. "'>".$conalunos['nome_aluno']. '-' .$conalunos['disciplina']."  </a>" ?>
+                                
                             </li>
-                            <li>
-                                <a href="professor.html">Professor 2</a>
-                            </li>
-                            <li>
-                                <a href="professor.html">Professor 3</a>
-                            </li>
+                            <?php } while($conalunos = $resu->fetch_array()); ?>
+             
+             <?php } ?>     
                         </ul>
                     </li>
                     <li>
-                        <a class="text-light" href="../anuncio.html">Encontre seu Professor</a>
+                        <a class="text-light" href="./anuncio.php">Encontre seu Professor</a>
                     </li>
-
                     <li class="active">
                         <a href="#homemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Filho</a>
                         <ul class="collapse list-unstyled" id="homemenu">
+                        <?php if($conaluno > 0 ){
+                    
+                    
+                    do {
+
+                        ?>  
                             <li>
-                                <a href="filho.html">Filho 1</a>
+                            <?php  echo "<a type='submit' href='../Other/filho.php?id_aluno=". $conaluno['id_aluno']. "'>".$conaluno['nome']."  </a>" ?>
                             </li>
-                            <li>
-                                <a href="filho.html">Filho 2</a>
-                            </li>
-                            <li>
-                                <a href="filho.html">Filho 3</a>
-                            </li>
+                            <?php } while($conaluno = $resul->fetch_array()); ?>
+             
+             <?php } ?>     
                         </ul>
                     </li>
                     <li>
-                        <a class="text-light" href="cadastrarFilho.html">Cadastrar Filho</a>
+                        <a class="text-light" href="../views/cadastrarFilho.php">Cadastrar Filho</a>
                     </li>
                     <li>
-                        <a class="text-light" href="/Other/vinculoReponsavel.html">Vinculos</a>
+                        <a class="text-light" href="../Other/vinculoReponsavel.php">Vinculos</a>
                     </li>
                     <li>
                         <a class="text-light" href="#">Voltar ao inicio da Pagina</a>
@@ -120,7 +178,7 @@
             <div class="d-flex align-items-center p-3 my-3 text-primary-50 bg-purple rounded box-shadow">
                 <div class="lh-100 col-lg-8">
 
-                    <h2 class="text-dark"><strong class="text-primary">Professor:</strong> nome do Professor</h2>
+                    <h2 class="text-dark"><strong class="text-primary">Professor:</strong> <?php echo" ". $contrato['nome_aluno']. " - ".$contrato['disciplina']." "?></h2>
 
                 </div>
             </div>
@@ -128,9 +186,9 @@
         <div class="row col-lg-3">
 
         </div>
-
+<!--
         <div class="col-lg-4 portlets mt-5">
-            <!-- Widget -->
+             Widget 
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="pull-left">Chat</div>
@@ -141,35 +199,35 @@
                 </div>
 
                 <div class="panel-body">
-                    <!-- Widget content -->
+                    Widget content 
                     <div class="padd sscroll">
 
                         <ul class="chats" style="list-style: none; padding-right: 50px;">
 
-                            <!-- Chat by us. Use the class "by-me". -->
+                            Chat by us. Use the class "by-me". 
                             <li class="by-me">
-                                <!-- Use the class "pull-left" in avatar -->
+                                Use the class "pull-left" in avatar 
                                 <div class="avatar pull-left">
                                     <img src="../images/user.jpg" class="mr-2 rounded-circle text-dark" alt="">
                                 </div>
 
                                 <div class="chat-content">
-                                    <!-- In meta area, first include "name" and then "time" -->
+                                     In meta area, first include "name" and then "time" 
                                     <div class="chat-meta">John Smith <span class="pull-right">3 hours ago</span></div>
                                     Vivamus diam elit diam, consectetur dapibus adipiscing elit.
                                     <div class="clearfix"></div>
                                 </div>
                             </li>
 
-                            <!-- Chat by other. Use the class "by-other". -->
+                         Chat by other. Use the class "by-other". 
                             <li class="by-other">
-                                <!-- Use the class "pull-right" in avatar -->
+                                 Use the class "pull-right" in avatar 
                                 <div class="avatar pull-right">
                                     <img src="../images/user22.png" class="mr-2 rounded-circle text-dark" alt="">
                                 </div>
 
                                 <div class="chat-content">
-                                    <!-- In the chat meta, first include "time" then "name" -->
+                                     In the chat meta, first include "time" then "name" 
                                     <div class="chat-meta">3 hours ago <span class="pull-right">Jenifer Smith</span></div>
                                     Vivamus diam elit diam, consectetur fconsectetur dapibus adipiscing elit.
                                     <div class="clearfix"></div>
@@ -189,13 +247,13 @@
                             </li>
 
                             <li class="by-other">
-                                <!-- Use the class "pull-right" in avatar -->
+                                 Use the class "pull-right" in avatar 
                                 <div class="avatar pull-right">
                                     <img src="../images/user22.png" class="mr-2 rounded-circle text-dark" alt="">
                                 </div>
 
                                 <div class="chat-content">
-                                    <!-- In the chat meta, first include "time" then "name" -->
+                                     In the chat meta, first include "time" then "name"
                                     <div class="chat-meta">3 hours ago <span class="pull-right">Jenifer Smith</span></div>
                                     Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
                                     <div class="clearfix"></div>
@@ -205,7 +263,7 @@
                         </ul>
 
                     </div>
-                    <!-- Widget footer -->
+                    Widget footer 
                     <div class="widget-foot">
 
                         <form class="form-inline">
@@ -221,34 +279,77 @@
 
 
             </div>
-        </div>
-        <div class="col-lg-5 mt-5">
+        </div> -->
+        <div class="col-lg-9 mt-5">
             <div class="card mb-3">
-                <div class="card-header">Nome do Aluno</div>
+                <div class="card-header"><?php echo $contrato['nome_aluno'];?></div>
                 <div class="card-body">
+
+              
                     <h3 class="card-title">Acompanhe o Desempenho:</h3>
                     <div class="col-lg-12 mt-5">
+                    <?php if($des > 0 ){
+                    
+                    
+                    do { ?>
+                        <?php if($des['nome_desempenho'] == "Baixo"){
+                            
+                            ?>
                         <div class="col-lg-3">
                             <i class="far fa-grin-beam-sweat text-danger" style="width: 30px; height: 50px;"></i>
-                            <p>Baixo</p>
+                            <p><?php echo $des['nome_desempenho']; ?></p>
                         </div>
-                        <div class="col-lg-3">
+                        <?php  }elseif($des['nome_desempenho'] == "Medio"){ ?>
+                            <div class="col-lg-3 ">
                             <i class="far fa-grimace text-warning" style="width: 30px; height: 50px;"></i>
-                            <p>Media</p>
+                            <p class=""><?php echo $des['nome_desempenho']; ?></p>
                         </div>
-                        <div class="col-lg-3">
+                       
+                        <?php  }elseif($des['nome_desempenho'] == "Alto"){ ?>
+                            <div class="col-lg-3 ">
                             <i class="far fa-grin-beam text-primary" style="width: 30px; height: 50px;"></i>
-                            <p>Alta</p>
+                            <p class=""><?php echo $des['nome_desempenho']; ?></p>
                         </div>
-                        <div class="col-lg-3">
+
+                        <?php  }elseif($des['nome_desempenho'] == "Otimo"){ ?>
+                            <div class="col-lg-3">
                             <i class="far fa-grin-hearts text-success" style="width: 30px; height: 50px;"></i>
-                            <p>Otima</p>
+                            <p class=""><?php echo $des['nome_desempenho']; ?></p>
+                        </div> 
+                        <?php  } ?>
+                    </div>
+                    <?php } while($des = $dese->fetch_array()); ?>
+                    <?php } ?>
+
+                    <div class="col-lg-12 mt-5 row">
+                    <?php if($pub > 0 ){
+                    
+                    
+                    do { ?>
+                        <div class="col-lg-3">
+ 
+                        <div class="form-group row mt-5">
+                                    
+                                <label className="btn btn-dark btn-lg" class="row col-lg-3 mt-5">
+                                    <i class="fas fa-file-medical" style="width: 150px; height: 90px;"></i>                                    
+                                    <strong class="row" style="margin-left: 40px;"><?php echo $pub['titulo'];?></strong>
+                                    
+                                </label>
                         </div>
                     </div>
-
+                    <?php } while($pub = $publ->fetch_array()); ?>
+                    <?php } ?>
+                    <div class="col-lg-12 mt-5">       
                     <h4 class="mt-5">Anotações:</h4>
+                    <?php if($anot > 0 ){
+                    
+                    
+                    do { ?>
                     <div class="car">
-                        <p class="mt-5">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+                        <p class="mt-5"><?php echo $anot['anotacao']; ?></p>
+                    </div>
+                    <?php } while($anot = $anota->fetch_array()); ?>
+                    <?php } ?>
                     </div>
                 </div>
             </div>

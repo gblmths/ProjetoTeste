@@ -39,19 +39,23 @@ require '../controller/session.php';
                 </div>
 
                 <ul class="list-unstyled components ">
-                    <p><?php echo $dados['nome'];?></p>
+                    <p>Buscar</p>
                     <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Professores</a>
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Acompanhar Filho</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li>
-                                <a href="./Other/professor.html">Professor 1</a>
+                        <?php if($conalunos > 0 ){
+                    
+                    
+                    do {
+
+                        ?>    
+                        <li>
+                        <?php  echo "<a type='submit' href='../Other/acompanharFilho.php?id_contrato=". $conalunos['id_contrato']. "'>".$conalunos['nome_aluno']. '-' .$conalunos['disciplina']."  </a>" ?>
+                                
                             </li>
-                            <li>
-                                <a href="./Other/professor.html">Professor 2</a>
-                            </li>
-                            <li>
-                                <a href="./Other/professor.html">Professor 3</a>
-                            </li>
+                            <?php } while($conalunos = $resu->fetch_array()); ?>
+             
+             <?php } ?>     
                         </ul>
                     </li>
                     <li>
@@ -60,15 +64,18 @@ require '../controller/session.php';
                     <li class="active">
                         <a href="#homemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Filho</a>
                         <ul class="collapse list-unstyled" id="homemenu">
+                        <?php if($conaluno > 0 ){
+                    
+                    
+                    do {
+
+                        ?>  
                             <li>
-                                <a href="./Other/filho.html">Filho 1</a>
+                            <?php  echo "<a type='submit' href='../Other/filho.php?id_aluno=". $conaluno['id_aluno']. "'>".$conaluno['nome']."  </a>" ?>
                             </li>
-                            <li>
-                                <a href="./Other/filho.html">Filho 2</a>
-                            </li>
-                            <li>
-                                <a href="./Other/filho.html">Filho 3</a>
-                            </li>
+                            <?php } while($conaluno = $resul->fetch_array()); ?>
+             
+             <?php } ?>     
                         </ul>
                     </li>
                     <li>
@@ -97,16 +104,14 @@ require '../controller/session.php';
 
             <div class="container row col-lg">
                 <div class="navbar-nav col-lg-3">
-                    <button type="button" id="sidebarCollapse" class="btn btn-info ml-auto">
-                        <i class="fas fa-indent text-white" ></i>
-                    <span></span>
+
                 </button>
                 </div>
 
                 <!-- Navbar-->
                 <ul class="navbar-nav col-lg-9 ml-md-6">
                     <li class="nav-item dropdown ml-auto">
-                        <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-user fa-w-14 fa-fw text-white" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg><!-- <i class="fas fa-user fa-fw"></i> --></a>
+                        <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-user fa-w-14 fa-fw text-white" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg>  <!-- <i class="fas fa-user fa-fw"></i> --> <?php echo $dados['nome'];?></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="/Other/alterarReponsavel.html">Alterar Cadastro</a>
                             <a class="dropdown-item" href="/Other/alterarFilho.html">Alterar Cadastro do Filho</a>

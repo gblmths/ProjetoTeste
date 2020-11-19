@@ -1,0 +1,63 @@
+                    @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+                    body {
+                        font-family: 'Poppins', sans-serif;
+                        background: #fafafa;
+                    }
+                    
+                    h3 {
+                        margin-left: 9px;
+                    }
+                    
+                    p {
+                        font-family: 'Poppins', sans-serif;
+                        font-size: 1.1em;
+                        font-weight: 300;
+                        line-height: 1.7em;
+                        color: #999;
+                    }
+                    
+                    .navbar {
+                        margin-top: -20px;
+                        padding: -30px 100x;
+                        margin-left: -20px;
+                        background-image: radial-gradient(circle farthest-side at 90% 10%, #2294d7, #275296);
+                        border: none;
+                        border-radius: 0;
+                        margin-bottom: 40px;
+                        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+                    }
+                    
+                    .logo {
+                        width: 120px;
+                    }
+                    
+                    .navbar-nav {
+                        padding-top: 10px;
+                    }
+                    
+                    .nav-link {
+                        margin-top: 10px;
+                        color: #fafafa;
+                    }
+                    
+                    .container-fluid {
+                        padding-right: 15px;
+                        padding-left: 15px;
+                        margin-right: auto;
+                        margin-left: auto;
+                    }
+                    
+                    @media (min-width: 992px) {
+                        .col-md-offset-3 {
+                            margin-left: 25%;
+                        }
+                    }
+                    
+                    .panel {
+                        margin-bottom: 20px;
+                        background-color: #fff;
+                        border: 1px solid transparent;
+                        border-radius: 4px;
+                        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+                        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+                    }

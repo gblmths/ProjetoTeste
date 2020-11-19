@@ -1,3 +1,31 @@
+
+<?php
+
+require '../model/conexao.php';
+
+
+
+session_start();
+
+if(!isset($_SESSION['logado'])):
+    header('Location: index.php');
+endif;  
+
+$id = $_SESSION['id_usuario'];
+
+
+
+$sql = "SELECT * FROM prt_usuario WHERE  id_usuario = '$id'";
+
+$resultado = mysqli_query($connect, $sql);
+
+$dados = mysqli_fetch_array($resultado);
+
+
+
+?>
+
+
 <!doctype html>
 <html>
 
@@ -127,18 +155,36 @@
 
 
         <div class="col-lg-9">
+        <?php 
+            
+            if($dados > 0 ){
+                    
+                    
+                do { ?>
             <div class="card col-sm-6 col-md-12 mt-4 shadow-lg p-3 mb-5 bg-white ">
                 <div class="card-body bg-ligth text-dark ">
-                    <form>
+                    <form method="POST" action="../controller/updateResponsavel.php">
                         <fieldset>
                             <legends>
                                 <h3>Informações Gerais:</h3>
                             </legends>
+                            <div  class=" form-group row invisible">      
+                            <label class="col-md-3 col-form-label ">id_perfil:</label>
+                            <div class="col-md-9 ">
+                                <input type="text " class="form-control " id="id_perfil " name="id_perfil"  value="<?php echo $dados['id_perfil'];?>" placeholder="Senha">
+                            </div >
+                            </div>
                             <div class="mt-5 form-group row ">
                                 <label class="col-md-3 col-form-label ">Nome:</label>
                                 <div class="col-md-9 ">
-                                    <input type="text " class="form-control " id="nome " placeholder="Nome ">
+                                    <input type="text " class="form-control " id="nome " name="nome" value="<?php echo $dados['nome'];?>" placeholder="Nome ">
                                 </div>
+                            </div>
+                            <div  class=" form-group row invisible">      
+                            <label class="col-md-3 col-form-label ">id_usuario:</label>
+                            <div class="col-md-9 ">
+                                <input type="text " class="form-control " id="id_usuario " name="id_usuario"  value="<?php echo $dados['id_usuario'];?>" placeholder="Senha">
+                            </div >
                             </div>
                         </fieldset>
                         <hr>
@@ -149,37 +195,40 @@
                             <div class="mt-5 form-group row ">
                                 <label class="col-md-3 col-form-label ">Estado:</label>
                                 <div class="col-md-9 ">
-                                    <input type="text " class="form-control " id="estado " placeholder="Estado ">
+                                    <input type="text " class="form-control " id="estado " name="estado"  value="<?php echo $dados['estado'];?>" placeholder="Estado ">
                                 </div>
                             </div>
                             <div class="form-group row ">
                                 <label class="col-md-3 col-form-label ">Cidade:</label>
                                 <div class="col-md-9 ">
-                                    <input type="text " class="form-control " id="Cidade " placeholder="Cidade ">
+                                    <input type="text " class="form-control " id="idade"  name="cidade"  value="<?php echo $dados['cidade'];?>"placeholder="Cidade ">
                                 </div>
                             </div>
-                            <div class="form-group row ">
-                                <label class="col-md-3 col-form-label ">Endereço:</label>
-                                <div class="col-md-9 ">
-                                    <input type="text " class="form-control " id="Endereço " placeholder="Endereço ">
-                                </div>
-                            </div>
+
                         </fieldset>
                         <hr>
                         <fieldset>
                             <legends>
                                 <h3>Acesso a Conta:</h3>
                             </legends>
+                            <div class="mt-5 form-group row ">
+                                <label class="col-md-3 col-form-label ">Email:</label>
+                                <div class="col-md-9 ">
+                                    <input type="text " class="form-control " id="email " name="email"  value="<?php echo $dados['email'];?>" placeholder="Nome ">
+                                </div>
+                            </div>
+                              <div  class=" form-group row ">      
                             <label class="col-md-3 col-form-label ">Nova Senha:</label>
                             <div class="col-md-9 ">
-                                <input type="password " class="form-control " id="password " placeholder="Senha">
+                                <input type="password" class="form-control " id="senha " name="senha" placeholder="Senha">
+                            </div >
                             </div>
                 </div>
                 </fieldset>
                 <hr>
                 <div class="row col-sm-12 col-md-12 text-center">
                     <div class="form-group col-sm-6 col-md-6 mt-4 ">
-                        <button type="button" class="btn btn-primary btn-lg mb-3" style="max-width: 190px">Alterar cadastro</button>
+                        <button type="submit" class="btn btn-primary btn-lg mb-3" name="alterar_Responsavel" style="max-width: 190px">Alterar cadastro</button>
                     </div>
                     <div class="form-group col-sm-6 col-md-6 mt-4 ">
                         <button type="button" class="btn btn-danger btn-lg mb-3" style="max-width: 300px">Excluir alteração</button>
@@ -187,6 +236,8 @@
                 </div>
                 </form>
             </div>
+            <?php } while($dados = $resultado->fetch_array()); ?>
+        <?php } ?>
         </div>
     </div>
 

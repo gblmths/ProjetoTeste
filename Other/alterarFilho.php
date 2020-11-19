@@ -1,3 +1,39 @@
+<?php 
+
+require '../model/conexao.php';
+
+session_start();
+
+if(!isset($_SESSION['logado'])):
+    header('Location: index.php');
+endif;  
+
+$id = $_SESSION['id_usuario'];
+
+$idaluno = filter_input(INPUT_GET, 'id_aluno', FILTER_SANITIZE_NUMBER_INT);
+$sql = "SELECT * FROM prt_usuario WHERE  id_usuario = '$id'";
+
+$resultado = mysqli_query($connect, $sql);
+$dados = mysqli_fetch_array($resultado);
+
+$sq = "SELECT * FROM prt_aluno WHERE id_aluno = '$idaluno'";
+
+$resul =  mysqli_query($connect, $sq);
+$conaluno = mysqli_fetch_array($resul);
+
+$s = "SELECT * FROM prt_aluno WHERE id_usuario = '$id'";
+
+$resul =  mysqli_query($connect, $s);
+$conaluno = mysqli_fetch_array($resul);
+
+$ab = "SELECT * FROM tb_contratos WHERE id_usuario = '$id'";  
+
+$resu = mysqli_query($connect, $ab);
+$conalunos = mysqli_fetch_array($resu);
+
+
+?>
+
 <!doctype html>
 <html>
 
@@ -20,12 +56,12 @@
 
 <body>
 
-    <header>
+<header>
         <div class="wrapper">
             <!-- Sidebar -->
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <a class="a2" href="../gerenciarResponsavel.html" style="text-decoration:none;">
+                <a class="a2" href="../views/gerenciarResponsavel.php" style="text-decoration:none;">
                         <h3>Portal do Aluno:</h3>
                     </a>
                 </div>
@@ -33,43 +69,50 @@
                 <ul class="list-unstyled components ">
                     <p>Buscar</p>
                     <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Professores</a>
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Acompanhar Filho</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li>
-                                <a href="professor.html">Professor 1</a>
+                        <?php if($conalunos > 0 ){
+                    
+                    
+                    do {
+
+                        ?>    
+                        <li>
+                        <?php  echo "<a type='submit' href='../Other/acompanharFilho.php?id_contrato=". $conalunos['id_contrato']. "'>".$conalunos['nome_aluno']. '-' .$conalunos['disciplina']."  </a>" ?>
+                                
                             </li>
-                            <li>
-                                <a href="professor.html">Professor 2</a>
-                            </li>
-                            <li>
-                                <a href="professor.html">Professor 3</a>
-                            </li>
+                            <?php } while($conalunos = $resu->fetch_array()); ?>
+             
+             <?php } ?>     
                         </ul>
                     </li>
                     <li>
-                        <a class="text-light" href="../anuncio.html">Encontre seu Professor</a>
+                        <a class="text-light" href="./anuncio.php">Encontre seu Professor</a>
                     </li>
-
                     <li class="active">
                         <a href="#homemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Filho</a>
                         <ul class="collapse list-unstyled" id="homemenu">
+                        <?php if($conaluno > 0 ){
+                    
+                    
+                    do {
+
+                        ?>  
                             <li>
-                                <a href="filho.html">Filho 1</a>
+                            <?php  echo "<a type='submit' href='../Other/filho.php?id_aluno=". $conaluno['id_aluno']. "'>".$conaluno['nome']."  </a>" ?>
                             </li>
-                            <li>
-                                <a href="filho.html">Filho 2</a>
-                            </li>
-                            <li>
-                                <a href="filho.html">Filho 3</a>
-                            </li>
+                            <?php } while($conaluno = $resul->fetch_array()); ?>
+             
+             <?php } ?>     
                         </ul>
                     </li>
                     <li>
-                        <a class="text-light" href="cadastrarFilho.html">Cadastrar Filho</a>
+                        <a class="text-light" href="../views/cadastrarFilho.php">Cadastrar Filho</a>
                     </li>
                     <li>
-                        <a class="text-light" href="/Other/vinculoReponsavel.html">Vinculos</a>
+                    <a class="text-light" href="../Other/vinculoReponsavel.php">Vinculos</a>
                     </li>
+                    
                     <li>
                         <a class="text-light" href="#">Voltar ao inicio da Pagina</a>
                     </li>
@@ -82,7 +125,6 @@
 
 
     </header>
-
     <div id="content">
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -135,22 +177,35 @@
 
             <div class="col-lg-9">
                 <div class="card col-sm-6 col-md-12 mt-4 shadow-lg p-3 mb-5 bg-white ">
+                <?php if($conaluno > 0 ){
+                    
+                    
+                    do {
+
+                        ?>  
                     <div class="card-body bg-ligth text-dark ">
-                        <form>
+                        <form method="POST" action="../controller/alterarFilho.php">
                             <fieldset>
                                 <legends>
                                     <h3>Informações Gerais:</h3>
                                 </legends>
+                            
                                 <div class="mt-5 form-group row ">
                                     <label class="col-md-3 col-form-label ">Nome:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="nome " placeholder="Nome ">
+                                        <input type="text " class="form-control " id="nome "  name="nome" placeholder="Nome" value="<?php echo $conaluno['nome'];?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Serie/Ano:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="serie_ano" placeholder="Serie/Ano">
+                                        <input type="text " class="form-control " id="serie_ano" name="serie_ano" placeholder="Serie/Ano" value="<?php echo $conaluno['serie_ano'];?>">
+                                    </div>
+                                </div>
+                                <div class="mt-5 form-group row invisible">
+                                    <label class="col-md-3 col-form-label ">id_aluno:</label>
+                                    <div class="col-md-9 ">
+                                        <input type="text " class="form-control " id="id_aluno " name="id_aluno" value="<?php echo $conaluno['id_aluno'];?>">
                                     </div>
                                 </div>
                             </fieldset>
@@ -162,19 +217,19 @@
                                 <div class="mt-5 form-group row ">
                                     <label class="col-md-3 col-form-label ">Estado:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="estado " placeholder="Estado ">
+                                        <input type="text " class="form-control " id="estado " name="estado" value="<?php echo $conaluno['estado'];?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Cidade:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="Cidade " placeholder="Cidade ">
+                                        <input type="text " class="form-control " id="cidade " name="cidade" placeholder="Cidade" value="<?php echo $conaluno['cidade'];?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Endereço:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="Endereço " placeholder="Endereço ">
+                                        <input type="text " class="form-control " id="endereço " name="endereco" placeholder="Endereço " value="<?php echo $conaluno['endereco'];?>">
                                     </div>
                                 </div>
                             </fieldset>
@@ -186,19 +241,25 @@
                                 <div class="form-group row mt-5 ">
                                     <label class="col-md-3 col-form-label ">E-mail:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="email" placeholder="E-mail">
+                                        <input type="text " class="form-control " id="email" name="email" placeholder="E-mail" value="<?php echo $conaluno['email'];?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Senha:</label>
                                     <div class="col-md-9 ">
-                                        <input type="password" class="form-control " id="senha" placeholder="Senha">
+                                        <input type="password" class="form-control " id="senha" name="senha" placeholder="Senha" value="">
+                                    </div>
+                                </div>
+                                <div class="mt-5 form-group row invisible">
+                                    <label class="col-md-3 col-form-label ">id_usuario:</label>
+                                    <div class="col-md-9 ">
+                                        <input type="text " class="form-control " id="id_usuario " value="<?php echo $conaluno['id_usuario'];?>">
                                     </div>
                                 </div>
                             </fieldset>
                             <div class="row col-sm-12 col-md-12 text-center">
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
-                                    <button type="button" class="btn btn-primary btn-lg mb-3" style="max-width: 190px">Cadastrar Filho</button>
+                                    <button type="submit" class="btn btn-primary btn-lg mb-3" name="alterar_Filho" style="max-width: 190px">Alterar Cadastro</button>
                                 </div>
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
                                     <button type="button" class="btn btn-danger btn-lg mb-3" style="max-width: 300px">Cancelar Cadastro</button>
@@ -206,6 +267,10 @@
                             </div>
                         </form>
                     </div>
+                    <?php } while($conaluno = $resul->fetch_array()); ?>
+             
+             <?php } ?>
+
                 </div>
             </div>
         </div>

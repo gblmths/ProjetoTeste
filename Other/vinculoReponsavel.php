@@ -1,8 +1,49 @@
+<?php 
+require '../model/conexao.php';
+
+
+
+session_start();
+
+if(!isset($_SESSION['logado'])):
+    header('Location: index.php');
+endif;  
+
+$id = $_SESSION['id_usuario'];
+
+
+
+$sql = "SELECT * FROM prt_usuario WHERE  id_usuario = '$id'";
+
+$resultado = mysqli_query($connect, $sql);
+
+$dados = mysqli_fetch_array($resultado);
+
+$sq = "SELECT * FROM tb_contratos WHERE  id_usuario = '$id'";
+
+
+$result =  mysqli_query($connect, $sq);
+$vinculo = mysqli_fetch_array($result);
+
+
+
+$s = "SELECT * FROM prt_aluno WHERE id_usuario = '$id'";
+
+$resul =  mysqli_query($connect, $s);
+$conaluno = mysqli_fetch_array($resul);
+
+$ab = "SELECT * FROM tb_contratos WHERE id_usuario = '$id'";  
+
+$resu = mysqli_query($connect, $ab);
+$conalunos = mysqli_fetch_array($resu);
+
+?>
+
 <!doctype html>
 <html>
 
 <head>
-    <title>Gerenciar</title>
+    <title>Vinculo Responsável</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="shortcut icon" href="images/iconsw/icon-32x32.png" sizes="32x32" type="image/png">
@@ -19,12 +60,12 @@
 </head>
 
 <body>
-    <header>
+<header>
         <div class="wrapper">
             <!-- Sidebar -->
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <a class="a2" href="../gerenciar.html" style="text-decoration:none;">
+                <a class="a2" href="../views/gerenciarResponsavel.php" style="text-decoration:none;">
                         <h3>Portal do Aluno:</h3>
                     </a>
                 </div>
@@ -32,41 +73,52 @@
                 <ul class="list-unstyled components ">
                     <p>Buscar</p>
                     <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Alunos</a>
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Acompanhar Filho</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li>
-                                <a href="alunos.html">Aluno 1</a>
+                        <?php if($conalunos > 0 ){
+                    
+                    
+                    do {
+
+                        ?>    
+                        <li>
+                        <?php  echo "<a type='submit' href='../Other/acompanharFilho.php?id_contrato=". $conalunos['id_contrato']. "'>".$conalunos['nome_aluno']. '-' .$conalunos['disciplina']."  </a>" ?>
+                                
                             </li>
-                            <li>
-                                <a href="alunos.html">Aluno 2</a>
-                            </li>
-                            <li>
-                                <a href="alunos.html">Aluno 3</a>
-                            </li>
+                            <?php } while($conalunos = $resu->fetch_array()); ?>
+             
+             <?php } ?>     
                         </ul>
                     </li>
                     <li>
-                        <a class="text-light" href="/pages/cadastroAnuncio.html">Cadastrar Marketing</a>
+                        <a class="text-light" href="./anuncio.php">Encontre seu Professor</a>
                     </li>
-                    <li>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle text-light">Responsável</a>
-                        <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li class="active">
+                        <a href="#homemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Filho</a>
+                        <ul class="collapse list-unstyled" id="homemenu">
+                        <?php if($conaluno > 0 ){
+                    
+                    
+                    do {
+
+                        ?>  
                             <li>
-                                <a href="responsavel.html">Responsável 1</a>
+                            <?php  echo "<a type='submit' href='../Other/filho.php?id_aluno=". $conaluno['id_aluno']. "'>".$conaluno['nome']."  </a>" ?>
                             </li>
-                            <li>
-                                <a href="responsavel.html">Responsável 2</a>
-                            </li>
-                            <li>
-                                <a href="responsavel.html">Responsável 3</a>
-                            </li>
+                            <?php } while($conaluno = $resul->fetch_array()); ?>
+             
+             <?php } ?>     
                         </ul>
                     </li>
                     <li>
-                        <a class="text-light" href="/pages/vinculoProfessor.html">Vinculos</a>
+                        <a class="text-light" href="../views/cadastrarFilho.php">Cadastrar Filho</a>
                     </li>
                     <li>
-                        <a class="text-light" href="#">Voltar ao inicio</a>
+                    <a class="text-light" href="../Other/vinculoReponsavel.php">Vinculos</a>
+                    </li>
+                    
+                    <li>
+                        <a class="text-light" href="#">Voltar ao inicio da Pagina</a>
                     </li>
 
                 </ul>
@@ -96,8 +148,8 @@
                     <li class="nav-item dropdown ml-auto">
                         <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-user fa-w-14 fa-fw text-white" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg><!-- <i class="fas fa-user fa-fw"></i> --></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="alterar.html">Alterar Cadastro</a>
-                            <a class="dropdown-item" href="alterarAnuncio.html">Alterar Anuncio</a>
+                            <a class="dropdown-item" href="alterarReponsavel.html">Alterar Cadastro</a>
+                            <a class="dropdown-item" href="alterarFilho.html">Alterar Cadastro do Filho</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="../index.html">Logout</a>
                         </div>
@@ -119,7 +171,12 @@
                 </div>
             </div>
         </div>
-
+        <?php 
+            
+            if($vinculo > 0 ){
+                    
+                    
+                do { ?>
         <div class="row col-lg-3">
 
         </div>
@@ -128,33 +185,33 @@
                 <div class="lh-100 col-lg-12 ">
                     <div class="media text-muted pt-3">
                         <div class="media-body pb-3 mb-0 small lh-125" id="">
-                            <strong class="d-block text-gray-dark border-bottom border-gray col-lg-12">Nome do Responsável</strong>
+                            <strong class="d-block text-gray-dark border-bottom border-gray col-lg-12"><?php echo $vinculo['nome_professor']; ?> </strong>
                             <div class="col-lg-6 mt-3" style="float: left;">
                                 <p>
-                                    <h5 class="text-dark">Nome Reponsável:
-                                        <strong class="strong">Reponsável</strong>
+                                    <h5 class="text-dark">Nome Professor:
+                                        <strong class="strong"><?php echo $vinculo['nome_professor']; ?></strong>
                                     </h5>
                                 </p>
                                 <p>
-                                    <h5 class="text-dark">Nome do aluno:
-                                        <strong class="strong">Aluno</strong>
+                                    <h5 class="text-dark">Nome do Filho:
+                                        <strong class="strong"><?php echo $vinculo['nome_aluno']; ?></strong>
                                     </h5>
                                 </p>
                                 <p>
                                     <h5 class="text-dark">Turno:
-                                        <strong class="strong">Manhã</strong>
+                                        <strong class="strong"><?php echo $vinculo['turno']; ?></strong>
                                     </h5>
                                 </p>
                                 <p>
                                     <h5 class="text-dark">matéria:
-                                        <strong class="strong">Matématica</strong>
+                                        <strong class="strong"><?php echo $vinculo['disciplina']; ?></strong>
                                     </h5>
                                 </p>
                             </div>
                             <div class="col-lg-6 mt-3" style="float: right;">
 
                                 <h5 class="text-dark">Valor da aula:
-                                    <strong class="strong">70 reais</strong>
+                                    <strong class="strong"><?php echo $vinculo['custo_aula']; ?></strong>
                                 </h5>
                                 </p>
                             </div>
@@ -172,6 +229,8 @@
                 </div>
             </div>
         </div>
+        <?php } while($vinculo = $result->fetch_array()); ?>
+        <?php } ?>
     </div>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
