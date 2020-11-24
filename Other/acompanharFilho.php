@@ -32,7 +32,7 @@ $sq = "SELECT * FROM tb_contratos WHERE  id_contrato = '$idcontrato'";
 $result = mysqli_query($connect, $sq);
 $contrato = mysqli_fetch_array($result);
 
-$ano = "SELECT * FROM tb_anotacoes WHERE  id_contrato = '$idcontrato'";
+$ano = "SELECT * FROM tb_anotacao WHERE  id_contrato = '$idcontrato'";
 
 $anota = mysqli_query($connect, $ano);
 $anot = mysqli_fetch_array($anota);
@@ -162,7 +162,7 @@ $pub = mysqli_fetch_array($publ);
                             <a class="dropdown-item" href="alterarReponsavel.html">Alterar Cadastro</a>
                             <a class="dropdown-item" href="alterarFilho.html">Alterar Cadastro do Filho</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="../inicio.html">Logout</a>
+                            <a class="dropdown-item" href="../index.php">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -326,13 +326,20 @@ $pub = mysqli_fetch_array($publ);
                     
                     
                     do { ?>
-                        <div class="col-lg-3">
+                       
+                       <div class="col-lg-3">
  
                         <div class="form-group row mt-5">
                                     
                                 <label className="btn btn-dark btn-lg" class="row col-lg-3 mt-5">
-                                    <i class="fas fa-file-medical" style="width: 150px; height: 90px;"></i>                                    
+                                    <i class="fas fa-file-medical" style="width: 150px; height: 90px;"></i>                                  
                                     <strong class="row" style="margin-left: 40px;"><?php echo $pub['titulo'];?></strong>
+                                    <?php   $arquivo =  $pub["arquivo_publicacao"];?>
+                                    <?php   $id_pub = $pub["id_publicacao"];?>
+                                    <p>
+                                        <a href="acompanharFilho.php?arquivo_publicacao=<?php echo $arquivo; ?>" >Download</a>
+
+                                    </p>
                                     
                                 </label>
                         </div>

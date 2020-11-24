@@ -11,6 +11,7 @@ endif;
 $id = $_SESSION['id_usuario'];
 
 $idaluno = filter_input(INPUT_GET, 'id_aluno', FILTER_SANITIZE_NUMBER_INT);
+
 $sql = "SELECT * FROM prt_usuario WHERE  id_usuario = '$id'";
 
 $resultado = mysqli_query($connect, $sql);
@@ -23,8 +24,8 @@ $conaluno = mysqli_fetch_array($resul);
 
 $s = "SELECT * FROM prt_aluno WHERE id_usuario = '$id'";
 
-$resul =  mysqli_query($connect, $s);
-$conaluno = mysqli_fetch_array($resul);
+$res =  mysqli_query($connect, $s);
+$conalun = mysqli_fetch_array($res);
 
 $ab = "SELECT * FROM tb_contratos WHERE id_usuario = '$id'";  
 
@@ -92,16 +93,16 @@ $conalunos = mysqli_fetch_array($resu);
                     <li class="active">
                         <a href="#homemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Filho</a>
                         <ul class="collapse list-unstyled" id="homemenu">
-                        <?php if($conaluno > 0 ){
+                        <?php if($conalun > 0 ){
                     
                     
                     do {
 
                         ?>  
                             <li>
-                            <?php  echo "<a type='submit' href='../Other/filho.php?id_aluno=". $conaluno['id_aluno']. "'>".$conaluno['nome']."  </a>" ?>
+                            <?php  echo "<a type='submit' href='../Other/filho.php?id_aluno=". $conalun['id_aluno']. "'>".$conalun['nome']."  </a>" ?>
                             </li>
-                            <?php } while($conaluno = $resul->fetch_array()); ?>
+                            <?php } while($conalun = $res->fetch_array()); ?>
              
              <?php } ?>     
                         </ul>
@@ -184,7 +185,9 @@ $conalunos = mysqli_fetch_array($resu);
 
                         ?>  
                     <div class="card-body bg-ligth text-dark ">
+                  
                         <form method="POST" action="../controller/alterarFilho.php">
+                     
                             <fieldset>
                                 <legends>
                                     <h3>Informações Gerais:</h3>
@@ -262,14 +265,15 @@ $conalunos = mysqli_fetch_array($resu);
                                     <button type="submit" class="btn btn-primary btn-lg mb-3" name="alterar_Filho" style="max-width: 190px">Alterar Cadastro</button>
                                 </div>
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
-                                    <button type="button" class="btn btn-danger btn-lg mb-3" style="max-width: 300px">Cancelar Cadastro</button>
+                                    <button type="submit" class="btn btn-danger btn-lg mb-3" name="deletar_filho" style="max-width: 300px">Deletar Cadastro</button>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <?php } while($conaluno = $resul->fetch_array()); ?>
+                            <?php } while($conaluno = $resul->fetch_array()); ?>
              
              <?php } ?>
+                        </form>
+                    </div>
+                
 
                 </div>
             </div>

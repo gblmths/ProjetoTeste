@@ -186,10 +186,15 @@ $conalunos = mysqli_fetch_array($resu);
             <div class="col-lg-9">
                 <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow mt-5">
                     <div class="lh-100 col-lg-12">
+                        <form method="POST" action="../controller/deletarFilho.php">
                         <div class="media text-muted pt-3">
                             <div class="media-body pb-3 mb-0 small lh-125" id="">
                                 <strong class="d-block text-gray-dark border-bottom border-gray ">Nome do Filho</strong>
-                                <br>
+                                <p class="">
+                                    <h5 class="text-dark invisible">Endereço:
+                                        <strong class="strong" name ="id_usuario" value="<?php echo $_SESSION['id_usuario']; ?>" ><?php echo $_SESSION['id_usuario']; ?></strong>
+                                    </h5>
+                                </p>
                                 <p>
                                     <h5 class="text-dark">Serie/Ano:
                                         <strong class="strong"><?php echo $aluno['serie_ano']; ?></strong>
@@ -215,18 +220,38 @@ $conalunos = mysqli_fetch_array($resu);
                                         <strong class="strong"><?php echo $aluno['endereco']; ?></strong>
                                     </h5>
                                 </p>
-                                <br>
+                                <div class="form-group row invisible">
+                            <label class="col-md-3 col-form-label ">Filho:</label>
+                                <div class="col-md-4 ">
+                                    <select class="form-control form-control-md "  id="id_aluno" name="id_aluno" >
+                                    <?php if($aluno > 0 ){
+                    
+                    
+                                     do { ?>
+                                        
+                                            <option value="<?php echo $aluno['id_aluno'];?>"><?php echo $aluno['nome'];?></option>
+                                        <?php } while($aluno = $result->fetch_array()); ?> 
+                                     <?php } ?>
+                                     </select>
+                                </div>
+                        </div>
                                 <hr>
                                 <div class="" style="float: right;">
-
-                                <?php  echo "<a type='submit' class='btn btn-outline-primary mt-1' name='alterarFilho' id='alterarFilho' href='alterarFilho.php?id_aluno=". $aluno['id_aluno']. "' >Alterar Cadastro</a>";  ?>
+                                <div class="form-group col-sm-6 col-md-6 mt-4 ">
+                                <?php  echo "<a type='submit' class='btn btn-outline-primary mt-1' id='alterarFilho' href='alterarFilho.php?id_aluno=". $aluno['id_aluno']. "' >Alterar Cadastro</a>";  ?>
+                                </div>
+                                <div class="form-group col-sm-6 col-md-6 mt-4 ">
+                                    <input type="submit" class="btn btn-danger mb-3" id="deletar_filho" name="deletar_filho">Deletar Cadastro</input>
+                                </div>
                                 </div>
                             </div>
 
                         </div>
+                        </form>
                     </div>
                 </div>
-            </div> <?php } while($aluno = $result->fetch_array()); ?>
+            </div>
+             <?php } while($aluno = $result->fetch_array()); ?>
              
              <?php } ?>     
         </div>

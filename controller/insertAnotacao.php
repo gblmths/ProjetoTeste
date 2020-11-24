@@ -9,7 +9,7 @@ if(isset($_POST['cadastro_anotacao'])) {
     $anotacao = $_POST['anotacao'];
  
 
-    $sql = "INSERT INTO tb_anotacoes (id_contrato, id_aluno, anotacao) values ('$id_contrato', '$id_aluno', '$anotacao')";
+    $sql = "INSERT INTO tb_anotacao (id_contrato, id_aluno, anotacao) values ('$id_contrato', '$id_aluno', '$anotacao')";
    
     mysqli_query($connect, $sql);
     

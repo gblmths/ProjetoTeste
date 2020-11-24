@@ -43,8 +43,9 @@ if(isset($_POST['inserir_publicacao']))
         //MONTA O CAMINHO DO NOVO DESTINO
   
         $fileInfo = pathinfo($_FILES['arquivo_publicacao']['name']);
-        $novoDestino = "{$pasta}/arquivo_publicacao".uniqid('', true) . '.' . $fileInfo['extension'];
+        $novoNome = "arquivo_publicacao".uniqid('', true) . '.' . $fileInfo['extension'];
         //$pasta = "../images/uploads/" . uniqid("") . '.' . ;
+        $novoDestino = $pasta.'/'.$novoNome;
         move_uploaded_file($_FILES['arquivo_publicacao']['tmp_name'], $novoDestino);
         //move_uploaded_file ( $_FILES['prof_img'] ['tmp_name'], "$pasta/$imagem_new_name");
     }
@@ -52,14 +53,35 @@ if(isset($_POST['inserir_publicacao']))
 
 
 
-    $sqlbaixo = "INSERT INTO tb_publicacao (id_contrato, id_aluno, arquivo_publicacao,titulo) values ('$id_contrato', '$id_aluno', '$novoDestino', '$titulo')";
+    $sqlbaixo = "INSERT INTO tb_publicacao (id_contrato, id_aluno, arquivo_publicacao, titulo) values ('$id_contrato', '$id_aluno', '$novoDestino', '$titulo')";
    
     mysqli_query($connect, $sqlbaixo);
     
 
     echo $sqlbaixo;
     header('Location: ../views/gerenciar.php');
+
+   
 }
 
+if(isset($_POST['id_publicacao'])) {
+    $id = $_POST['id_publicacao'];
+
+    if(file_exists($novoDestino))
+    {
+        header('Content-Type: application/octet-stream');
+        header('Content-Description: File Transfer');
+        header('Content-Disposition: attachment; filename="'.$novoNome.'"');
+
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma:public');
+        header('Content-Lenght:' . filesize($novoDestino));
+        readfile($novoDestino);
+
+        exit();
+
+    }
+}
 
 ?>

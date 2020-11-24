@@ -171,10 +171,14 @@ $comen = mysqli_fetch_array($comentar);
                             <label class="col-md-3 col-form-label ">Filho:</label>
                                 <div class="col-md-4 ">
                                     <select class="form-control form-control-md "  id="id_aluno" name="id_aluno" >
-                                        <?php while($aluno = $result->fetch_array()) { ?>
+                                    <?php if($aluno > 0 ){
+                    
+                    
+                                     do { ?>
+                                        
                                             <option value="<?php echo $aluno['id_aluno'];?>"><?php echo $aluno['nome'];?></option>
-                                        <?php } ?> 
-                                
+                                        <?php } while($aluno = $result->fetch_array()); ?> 
+                                     <?php } ?>
                                      </select>
                                 </div>
                         </div>
@@ -182,9 +186,14 @@ $comen = mysqli_fetch_array($comentar);
                             <label class="col-md-3 col-form-label ">Confirmar Filho:</label>
                                 <div class="col-md-4 ">
                                     <select class="form-control form-control-md "  id="nome_aluno" name="nome_aluno">
-                                            <?php while($nome_aluno = $name_aluno->fetch_array()) { ?>
+                                    <?php if($nome_aluno > 0 ){
+                    
+                    
+                                            do { ?>
+                                            
                                                 <option value="<?php echo $nome_aluno['nome'];?>"><?php echo $nome_aluno['nome'];?></option>
-                                             <?php } ?> 
+                                             <?php } while($nome_aluno = $name_aluno->fetch_array()); ?> 
+                                             <?php } ?>   
                                     </select>
                                 </div>
                         </div>
@@ -192,9 +201,14 @@ $comen = mysqli_fetch_array($comentar);
                             <label class="col-md-3 col-form-label ">série do Filho:</label>
                                 <div class="col-md-4 ">
                                     <select class="form-control form-control-md "  id="serie_ano" name="serie_ano">
-                                            <?php while($serie_ano = $serieano->fetch_array()) { ?>
+                                    <?php if($serie_ano > 0 ){
+                    
+                    
+                                    do { ?>
+                                            
                                                 <option value="<?php echo $serie_ano['serie_ano'];?>"><?php echo $serie_ano['serie_ano'];?></option>
-                                             <?php } ?> 
+                                             <?php } while($serie_ano = $serieano->fetch_array()); ?> 
+                                    <?php  } ?>
                                     </select>
                                 </div>
                         </div>

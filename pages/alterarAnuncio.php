@@ -1,3 +1,33 @@
+<?php
+
+
+require '../model/conexao.php';
+
+
+
+session_start();
+
+if(!isset($_SESSION['logado'])):
+    header('Location: index.php');
+endif;  
+
+$id = $_SESSION['id_usuario'];
+
+$idanuncio = filter_input(INPUT_GET, 'id_anuncio', FILTER_SANITIZE_NUMBER_INT);
+
+$sql = "SELECT * FROM tb_announcements WHERE id_anuncio = '$idanuncio'"; 
+$cone = mysqli_query($connect, $sql);
+$con = mysqli_fetch_array($cone);
+
+
+
+
+
+
+
+?>
+
+
 <!doctype html>
 <html>
 
@@ -131,7 +161,13 @@
             <div class="col-lg-9">
                 <div class="card col-sm-6 col-md-12 mt-4 shadow-lg p-3 mb-5 bg-white ">
                     <div class="card-body bg-ligth text-dark ">
-                        <form>
+                    <?php if($con > 0 ){
+                    
+                    
+                    do {
+
+                        ?> 
+                        <form method="POST" action="">
                             <fieldset>
                                 <legends>
                                     <h3>Informações Gerais:</h3>
@@ -139,46 +175,52 @@
                                 <div class="mt-5 form-group row ">
                                     <label class="col-md-3 col-form-label ">Nome:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="nome " placeholder="Nome ">
+                                        <input type="text " class="form-control " id="nome " placeholder="Nome" value="<?php echo $con['nome']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label mt-2">Foto:</label>
                                     <label className="btn btn-dark btn-lg" class="col-md-9">
-                                        <img data-src="holder.js/40x40?theme=thumb&amp;bg=666666&amp;fg=666666&amp;size=1" alt="32x32" class="mr-2 rounded-circle text-dark" style="width: 40px; height: 40px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_172be683a78%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_172be683a78%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2211%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-                                    data-holder-rendered="true">
+                                    <?php $imagem = $con['prof_img']; echo '<img src='.$imagem.'  height="75" width="75" data-holder-rendered="true">'; ?>
+                                    
                                         <input type="file" style="display: none" />
                                       </label>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Formação:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="formacao" placeholder="Formação">
+                                        <input type="text " class="form-control " id="formacao" placeholder="Formação" value="<?php echo $con['formacao']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Matéria:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="vaula" placeholder="Matéria">
+                                        <input type="text " class="form-control " id="vaula" placeholder="Matéria" value="<?php echo $con['disciplina']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Turno:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="vaula" placeholder="Turno">
+                                        <input type="text " class="form-control " id="vaula" placeholder="Turno" value="<?php echo $con['turno']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">E-mail:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="email" placeholder="E-mail">
+                                        <input type="text " class="form-control " id="email" placeholder="E-mail" value="<?php echo $con['email']; ?>">
                                     </div>
                                 </div>
 
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Valor da Aula:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="vaula" placeholder="Valor da Aula">
+                                        <input type="text " class="form-control " id="vaula" placeholder="Valor da Aula" value="<?php echo $con['custo_aula']; ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group row ">
+                                    <label class="col-md-3 col-form-label ">Horarios:</label>
+                                    <div class="col-md-9 ">
+                                        <input type="text " class="form-control " id="vaula" placeholder="Valor da Aula" value="<?php echo $con['horario']; ?>">
                                     </div>
                                 </div>
                             </fieldset>
@@ -190,19 +232,25 @@
                                 <div class="mt-5 form-group row ">
                                     <label class="col-md-3 col-form-label ">Estado:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="estado " placeholder="Estado ">
+                                        <input type="text " class="form-control " id="estado " placeholder="Estado " value="<?php echo $con['estado']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Cidade:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="Cidade " placeholder="Cidade ">
+                                        <input type="text " class="form-control " id="Cidade " placeholder="Cidade " value="<?php echo $con['cidade']; ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group row ">
+                                    <label class="col-md-3 col-form-label ">Bairro:</label>
+                                    <div class="col-md-9 ">
+                                        <input type="text " class="form-control " id="Endereço " placeholder="Endereço "value="<?php echo $con['bairro']; ?>" >
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Endereço:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="Endereço " placeholder="Endereço ">
+                                        <input type="text " class="form-control " id="Endereço " placeholder="Endereço "value="<?php echo $con['endereco']; ?>" >
                                     </div>
                                 </div>
                             </fieldset>
@@ -217,6 +265,9 @@
                                 </div>
                             </div>
                         </form>
+                        <?php } while($con = $cone->fetch_array()); ?>
+             
+             <?php } ?>  
                     </div>
                 </div>
             </div>

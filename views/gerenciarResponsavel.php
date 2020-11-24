@@ -116,7 +116,7 @@ require '../controller/session.php';
                             <a class="dropdown-item" href="/Other/alterarReponsavel.html">Alterar Cadastro</a>
                             <a class="dropdown-item" href="/Other/alterarFilho.html">Alterar Cadastro do Filho</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="./controller/logout.php">Logout</a>
+                            <a class="dropdown-item" href="../controller/logout.php">Logout</a>
                         </div>
                     </li>
                 </ul>

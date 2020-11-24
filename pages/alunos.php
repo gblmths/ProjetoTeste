@@ -51,7 +51,7 @@ $desempenho = mysqli_fetch_array($dese);
 
 $an = $v['id_contrato'];
 
-$anot = "SELECT * FROM tb_anotacoes WHERE id_aluno = '$idaluno' and id_contrato = '$an'";
+$anot = "SELECT * FROM tb_anotacao WHERE id_aluno = '$idaluno' and id_contrato = '$an'";
 
 $anota = mysqli_query($connect, $anot);
 $anotacao = mysqli_fetch_array($anota);
