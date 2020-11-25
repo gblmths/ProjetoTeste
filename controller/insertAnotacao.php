@@ -15,7 +15,7 @@ if(isset($_POST['cadastro_anotacao'])) {
     
 
     echo $sql;
-    header('Location: ../views/gerenciar.php');
+    header('Location: ../pages/alunos.php?id_aluno='.$id_aluno.'');
 }
 
 ?>

@@ -16,7 +16,7 @@ if(isset($_POST['desempenho_baixo'])) {
     
 
     echo $sqlbaixo;
-    header('Location: ../views/gerenciar.php');
+    header('Location: ../pages/alunos.php?id_aluno='.$id_aluno.'');
 }
 
 if(isset($_POST['desempenho_medio'])) {
@@ -31,7 +31,7 @@ if(isset($_POST['desempenho_medio'])) {
     
 
     echo $sqlmedio;
-    header('Location: ../views/gerenciar.php');
+    header('Location: ../pages/alunos.php?id_aluno='.$id_aluno.'');
 }
 
 if(isset($_POST['desempenho_alto'])) {
@@ -46,7 +46,7 @@ if(isset($_POST['desempenho_alto'])) {
     
 
     echo $sqlalto;
-    header('Location: ../views/gerenciar.php');
+    header('Location: ../pages/alunos.php?id_aluno='.$id_aluno.'');
 }
 
 
@@ -62,7 +62,7 @@ if(isset($_POST['desempenho_otimo'])) {
     
 
     echo $sqlotimo;
-    header('Location: ../views/gerenciar.php');
+    header('Location: ../pages/alunos.php?id_aluno='.$id_aluno.'');
 }
 
 

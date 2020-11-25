@@ -128,9 +128,9 @@ $con = mysqli_fetch_array($cone);
                         <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-user fa-w-14 fa-fw text-white" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg><!-- <i class="fas fa-user fa-fw"></i> --></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="alterar.html">Alterar Cadastro</a>
-                            <a class="dropdown-item" href="alterarAnuncio.html">Alterar Anuncio</a>
+                            <a class="dropdown-item" href="alterarAnuncio.php">Alterar Anuncio</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="../index.html">Logout</a>
+                            <a class="dropdown-item" href="../index.php">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -167,7 +167,7 @@ $con = mysqli_fetch_array($cone);
                     do {
 
                         ?> 
-                        <form method="POST" action="">
+                        <form method="POST" action="../controller/updateAnuncio.php">
                             <fieldset>
                                 <legends>
                                     <h3>Informações Gerais:</h3>
@@ -175,7 +175,7 @@ $con = mysqli_fetch_array($cone);
                                 <div class="mt-5 form-group row ">
                                     <label class="col-md-3 col-form-label ">Nome:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="nome " placeholder="Nome" value="<?php echo $con['nome']; ?>">
+                                        <input type="text " class="form-control " id="nome " name="nome" placeholder="Nome" value="<?php echo $con['nome']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
@@ -183,44 +183,44 @@ $con = mysqli_fetch_array($cone);
                                     <label className="btn btn-dark btn-lg" class="col-md-9">
                                     <?php $imagem = $con['prof_img']; echo '<img src='.$imagem.'  height="75" width="75" data-holder-rendered="true">'; ?>
                                     
-                                        <input type="file" style="display: none" />
+                                        <input type="file" name="prof_img" style="display: none" />
                                       </label>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Formação:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="formacao" placeholder="Formação" value="<?php echo $con['formacao']; ?>">
+                                        <input type="text " class="form-control " id="formacao" placeholder="Formação" name="formacao" value="<?php echo $con['formacao']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Matéria:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="vaula" placeholder="Matéria" value="<?php echo $con['disciplina']; ?>">
+                                        <input type="text " class="form-control " id="vaula" placeholder="Matéria" name="disciplina" value="<?php echo $con['disciplina']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Turno:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="vaula" placeholder="Turno" value="<?php echo $con['turno']; ?>">
+                                        <input type="text " class="form-control " id="vaula" placeholder="Turno" name="turno" value="<?php echo $con['turno']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">E-mail:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="email" placeholder="E-mail" value="<?php echo $con['email']; ?>">
+                                        <input type="text " class="form-control " id="email" placeholder="E-mail" name="email" value="<?php echo $con['email']; ?>">
                                     </div>
                                 </div>
 
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Valor da Aula:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="vaula" placeholder="Valor da Aula" value="<?php echo $con['custo_aula']; ?>">
+                                        <input type="text " class="form-control " id="vaula" placeholder="Valor da Aula" name="custo_aula" value="<?php echo $con['custo_aula']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Horarios:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="vaula" placeholder="Valor da Aula" value="<?php echo $con['horario']; ?>">
+                                        <input type="text " class="form-control " id="vaula" placeholder="Horario da Aula" name="horario" value="<?php echo $con['horario']; ?>">
                                     </div>
                                 </div>
                             </fieldset>
@@ -232,33 +232,45 @@ $con = mysqli_fetch_array($cone);
                                 <div class="mt-5 form-group row ">
                                     <label class="col-md-3 col-form-label ">Estado:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="estado " placeholder="Estado " value="<?php echo $con['estado']; ?>">
+                                        <input type="text " class="form-control " id="estado " placeholder="Estado" name="estado" value="<?php echo $con['estado']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Cidade:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="Cidade " placeholder="Cidade " value="<?php echo $con['cidade']; ?>">
+                                        <input type="text " class="form-control " id="Cidade " placeholder="Cidade" name="cidade" value="<?php echo $con['cidade']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Bairro:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="Endereço " placeholder="Endereço "value="<?php echo $con['bairro']; ?>" >
+                                        <input type="text " class="form-control " id="Endereço " placeholder="Bairro" name="bairro" value="<?php echo $con['bairro']; ?>" >
                                     </div>
                                 </div>
                                 <div class="form-group row ">
                                     <label class="col-md-3 col-form-label ">Endereço:</label>
                                     <div class="col-md-9 ">
-                                        <input type="text " class="form-control " id="Endereço " placeholder="Endereço "value="<?php echo $con['endereco']; ?>" >
+                                        <input type="text " class="form-control " id="Endereço " placeholder="Endereço" name="endereco" value="<?php echo $con['endereco']; ?>" >
                                     </div>
                                 </div>
                             </fieldset>
                             <hr>
-
+                            <div class="col-lg-12">
+                        
+                                    <div class="invisible form-group">
+                                            <label class="col-form-label ">Tipo de Acesso:</label>
+                                                <div class="">
+                                                    <select class="form-control form-control-md " name='anuncio' id="anuncio">
+                                                        <option value="<?php echo $dado['id_anuncio'];?>"><?php echo $dado['id_anuncio'];?></option> <!-- data-toggle="modal"  data-target="#ExemploModalCentralizado" -->
+                                                    </select>
+                                                </div>
+                                            </label>    
+                                    </div>
+                            
+                            </div>         
                             <div class="row col-sm-12 col-md-12 text-center">
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
-                                    <button type="button" class="btn btn-primary btn-lg mb-3" style="max-width: 190px">Alterar Anuncio</button>
+                                    <button type="submit" name="update_anuncio" class="btn btn-primary btn-lg mb-3" style="max-width: 190px">Alterar Anuncio</button>
                                 </div>
                                 <div class="form-group col-sm-6 col-md-6 mt-4 ">
                                     <button type="button" class="btn btn-danger btn-lg mb-3" style="max-width: 300px">Excluir Anuncio</button>

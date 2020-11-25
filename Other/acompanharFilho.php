@@ -335,9 +335,9 @@ $pub = mysqli_fetch_array($publ);
                                     <i class="fas fa-file-medical" style="width: 150px; height: 90px;"></i>                                  
                                     <strong class="row" style="margin-left: 40px;"><?php echo $pub['titulo'];?></strong>
                                     <?php   $arquivo =  $pub["arquivo_publicacao"];?>
-                                    <?php   $id_pub = $pub["id_publicacao"];?>
+                                    
                                     <p>
-                                        <a href="acompanharFilho.php?arquivo_publicacao=<?php echo $arquivo; ?>" >Download</a>
+                                        <a href="<?php echo $arquivo; ?>" download >Download</a>
 
                                     </p>
                                     

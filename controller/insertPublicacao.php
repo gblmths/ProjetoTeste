@@ -59,29 +59,30 @@ if(isset($_POST['inserir_publicacao']))
     
 
     echo $sqlbaixo;
-    header('Location: ../views/gerenciar.php');
+    header('Location: ../pages/alunos.php?id_aluno='.$id_aluno.'');
 
    
 }
 
-if(isset($_POST['id_publicacao'])) {
+/*if(isset($_POST['id_publicacao'])) {
     $id = $_POST['id_publicacao'];
 
-    if(file_exists($novoDestino))
-    {
-        header('Content-Type: application/octet-stream');
-        header('Content-Description: File Transfer');
-        header('Content-Disposition: attachment; filename="'.$novoNome.'"');
-
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma:public');
-        header('Content-Lenght:' . filesize($novoDestino));
-        readfile($novoDestino);
-
+    if(!file_exists($novoDestino)){ 
         exit();
-
     }
-}
+    header('Content-Description: File Transfer');
+    header('Content-Disposition: attachment; filename="'.$novoNome.'"');
+    header('Content-Type: application/octet-stream');
+    header('Content-Transfer-Encoding: binary');
+    header('Content-Lenght:' . filesize($novoDestino));
+    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+    header('Pragma:public');
+    header('Expires: 0');
+    readfile($novoDestino);
+
+        
+
+    
+}*/
 
 ?>
